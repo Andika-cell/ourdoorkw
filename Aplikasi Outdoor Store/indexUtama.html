@@ -1,0 +1,1681 @@
+<!DOCTYPE html> 
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outdoor Rental Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+      box-sizing: border-box;
+      background-color: #f7f9f8;
+      color: #333;
+    }
+
+/* Header Styling */
+.header {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+  padding: 1rem 0;
+  transition: background 0.3s ease;
+}
+
+.header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1b4332;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: #52b788;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1b1b1b;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a:hover {
+  background-color: #d8f3dc;
+  color: #2d6a4f;
+}
+
+.nav-links .btn {
+  background-color: #40916c;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nav-links .btn:hover {
+  background-color: #2d6a4f;
+  transform: translateY(-2px);
+}
+
+.cart-icon i {
+  margin-right: 5px;
+}
+
+/* Navbar responsif untuk perangkat mobile */
+@media (max-width: 992px) {
+  .header .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .nav-links {
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Button */
+.btn {
+  background-color: #40916c;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  background-color: #2d6a4f;
+  transform: translateY(-2px);
+}
+    
+    header {
+      background-color: #2d6a4f;
+      padding: 15px 30px;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    #hero {
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') no-repeat center center/cover;
+      height: 90vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    #hero h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background-color: #40916c;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #201c97;
+    }
+
+    .about, .contact {
+      background-color: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .portfolio-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 kolom */
+  gap: 20px;
+}
+
+    .portfolio-item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-8px);
+    }
+
+    .portfolio-wrap img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .portfolio-info {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .portfolio-info h4 {
+      margin: 10px 0 5px;
+    }
+
+    .portfolio-info p {
+      color: #777;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background-color: #2d6a4f;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: 50px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    form button {
+      width: 100%;
+      background-color: #40916c;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    form button:hover {
+      background-color: #1b4332;
+    }
+
+    .cart-container {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  z-index: 1001;
+  padding: 20px;
+}
+
+.cart-container.show {
+  right: 0;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-items {
+  margin-top: 20px;
+  max-height: 60%;
+  overflow-y: auto;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 10px;
+  background: #40916c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Modal Pembayaran Styles */
+.modal-payment {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.modal-header h3 {
+  width: 100%;
+  text-align: center;
+}
+
+.close-modal {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.close-modal:hover {
+  color: black;
+}
+
+.payment-methods {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.payment-method {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 120px;
+}
+
+.payment-method:hover {
+  border-color: #1e724c;
+  transform: translateY(-2px);
+}
+
+.payment-method.selected {
+  border-color: #1e724c;
+  background-color: rgba(30, 114, 76, 0.1);
+}
+
+.payment-method img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.payment-method span {
+  display: block;
+  font-weight: 500;
+}
+
+.payment-summary {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.payment-summary h4 {
+  margin-bottom: 15px;
+}
+
+.payment-summary p {
+  margin: 10px 0;
+}
+
+#paymentTotal {
+  font-weight: bold;
+  color: #1e724c;
+  font-size: 1.2em;
+}
+
+#selectedMethod {
+  font-weight: 500;
+}
+
+.btn-confirm {
+  background-color: #1e724c;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 15px;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+}
+
+.btn-confirm:hover {
+  background-color: #2a9870;
+}
+
+.cart-icon {
+  position: relative;
+  display: inline-block;
+}
+
+#cart-count {
+  display: none;
+}
+
+#cart-count.show {
+  display: inline-block;
+}
+
+  </style>
+
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="container">
+    <a href="#" class="logo">Outdoor <span>Kw Store</span></a>
+    
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#hero">Beranda</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#portfolio">Produk</a></li>
+        <li><a href="#contact">Kontak</a></li>
+        <li><a href="riwayat.html">Riwayat</a></li>
+        <li><a href="#" id="open-cart" class="cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart-count" style="background-color: #ff4444; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -8px; right: -8px;">0</span>
+        </a></li>
+        <li><a href="login.html" class="btn">Login</a></li>
+        <li><a href="registrasi.html" class="btn">Registrasi</a></li>
+        <li><a href="#" id="logout-btn" class="btn" style="display: none;">Logout</a></li>
+        <li id="userInfo" style="display: none; margin-left: 10px;">
+          <i class="fas fa-user-circle"></i>
+          <i class="fas fa-user-circle me-2"></i>
+          <span id="userName" style="color: #1b4332; font-weight: 500;">User</span>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- User Info Section -->
+<div class="container mt-3" style="margin-top: 80px !important;">
+  <div class="alert alert-info d-flex justify-content-between align-items-center" id="userInfo" style="display: none;">
+    <div>
+      <i class="fas fa-user-circle me-2"></i>
+      <span>Selamat datang, <span id="userName">User</span></span>
+    </div>
+    <div>
+      <span id="userRole" class="badge bg-success me-2">Pelanggan</span>
+      <span id="loginTime" class="text-muted">Login: <span id="currentTime"></span></span>
+    </div>
+  </div>
+</div>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <h1>"Mulai Petualanganmu Hari Ini, Petualangan Hebat Dimulai dari Perlengkapan Terbaik"</h1>
+    <h2>Sewa peralatan camping, hiking, dan outdoor dengan harga terjangkau. siap pakai, siap jelajah!</h2>
+    <a href="login.html" class="btn">Sewa Sekarang & Jelajahi Alam Bebas</a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>Tentang Kami</h2>
+    
+    <p>Selamat datang di Outdoor Kw Store – tempat terbaik untuk memulai petualangan alammu tanpa harus membeli perlengkapan yang mahal!</p>
+
+    <p>Kami memahami bahwa tidak semua orang punya waktu, tempat, atau anggaran untuk membeli perlengkapan outdoor yang lengkap. Tapi itu bukan alasan untuk tidak menjelajahi keindahan alam Indonesia. Karena itu, kami hadir sebagai solusi: menyediakan perlengkapan camping, hiking, dan petualangan lainnya dengan sistem sewa yang mudah, terjangkau, dan berkualitas tinggi.</p>
+      
+    <p>Mulai dari tenda anti air, sleeping bag hangat, kompor portable, hingga carrier ergonomis, semua produk kami dirawat dengan standar terbaik untuk memastikan kenyamanan dan keamanan kamu selama bertualang. Kami juga rutin melakukan pengecekan dan perawatan barang, jadi kamu bisa fokus menikmati perjalanan, tanpa khawatir soal perlengkapan.</p>
+    
+
+
+    <p>🔥 Kenapa Pilih Outdoor Kw Store?</p>
+    <p>✅ Kualitas Terjamin – Semua perlengkapan kami berasal dari merek terpercaya dan dalam kondisi prima.</p>
+    <p>✅ Harga Ramah Dompet – Sewa sesuai kebutuhan tanpa menguras kantong.</p>
+    <p>✅ Proses Mudah & Cepat – Pesan online, ambil, dan langsung berangkat!</p>
+    <p>✅ Cocok untuk Pemula hingga Pro – Mau camping santai atau mendaki gunung tinggi, kami punya semua yang kamu butuhkan.</p>
+
+
+    
+    <p>🌿 Untuk Siapa Outdoor Kw?</p>
+       <p>Untuk kamu yang:</p>
+      <p>-Mau coba camping untuk pertama kali tanpa beli perlengkapan mahal.</p>
+      <p>-Seorang petualang yang butuh gear ekstra tanpa repot.</p>
+      <p>-Traveler yang suka fleksibilitas dan efisiensi.</p>
+      <p>-Keluarga atau komunitas yang ingin liburan outdoor bareng.</p>
+      <p>Outdoor Kw Store bukan sekadar penyedia alat. Kami adalah bagian dari cerita petualanganmu. Karena kami percaya, alam bukan untuk ditonton, tapi untuk dijelajahi.</p>
+
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio"> 
+    <h2>Produk Kami</h2>
+    <div class="portfolio-container">
+
+      <!-- Produk 1 -->
+      <div class="col-lg-4 col-md-6 portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="1.Tenda Kap 2 Orang.jpg" class="img-fluid" alt="">
+          <div class="portfolio-info">
+            <h4>Tenda Kap 2 Orang</h4>
+            <p>Rp. 35.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Tenda Kap 2 Orang" data-price="35000">Sewa</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 2 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="2.Tenda Kap 4 Orang.jpg" alt="Kompor Portable">
+          <div class="portfolio-info">
+            <h4>Tenda Kap 4 Orang</h4>
+            <p>Rp. 45.000/hari</p>
+           
+            <a href="#" class="btn sewa-btn" data-name="Tenda Kap 4 Orang" data-price="45000">Sewa</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 3 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="3.Tenda Double Layer 2 Orang.jpg" alt="Matras">
+          <div class="portfolio-info">
+            <h4>Tenda Double Layer 2 Orang</h4>
+            <p>Rp. 50.000/hari</p>
+            
+            <a href="#" class="btn sewa-btn" data-name="Tenda Double Layer 2 Orang" data-price="50000">Sewa</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 4 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="4.Tenda Double Layer 4 Orang.jpg" alt="Sleeping Bag">
+          <div class="portfolio-info">
+            <h4>Tenda Double Layer 4 Orang</h4>
+            <p>Rp. 60.000/hari</p>
+           
+            <a href="#" class="btn sewa-btn" data-name="Tenda Double Layer 4 Orang" data-price="60000">Sewa</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 5 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="5.Hydropack.jpg" alt="Carrier 60L">
+          <div class="portfolio-info">
+            <h4>Hydropack</h4>
+            <p>Rp. 25.000/hari</p>
+           
+            <a href="#" class="btn sewa-btn" data-name="Hydropack" data-price="25000">Sewa</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 6 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="6.Meja Persegi.jpg" alt="Jas Hujan">
+          <div class="portfolio-info">
+            <h4>Meja Persegi</h4>
+            <p>Rp. 20.000/hari</p>
+           
+            <a href="#" class="btn sewa-btn" data-name="Meja Persegi" data-price="20000">Sewa</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 7 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="7.Meja Panjang.jpg" alt="Lampu Senter">
+          <div class="portfolio-info">
+            <h4>Meja Panjang</h4>
+            <p>Rp. 30.000/hari</p>
+            
+            <a href="#" class="btn sewa-btn" data-name="Meja Panjang" data-price="20000">Sewa</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 8 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="8.Kursi Lipat.jpg" alt="Trekking Poles">
+          <div class="portfolio-info">
+            <h4>Kursi Lipat</h4>
+            <p>Rp. 15.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Kursi Lipat" data-price="15000">Sewa</a>
+          
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 9 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="9.Kursi Jumbo.jpg" alt="Tenda Camping">
+          <div class="portfolio-info">
+            <h4>Kursi Jumbo</h4>
+            <p>Rp. 25.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Kursi Jumbo" data-price="25000">Sewa</a>
+     
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 10 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="10.Paket 4 Kursi & Meja.jpg" alt="Cooler Box">
+          <div class="portfolio-info">
+            <h4>Paket 4 Kursi & Meja</h4>
+            <p>Rp. 70.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Paket 4 Kursi & Meja" data-price="70000">Sewa</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 11 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="11.Paket 6 Kursi & Meja Panjang.jpg" alt="Alat Masak">
+          <div class="portfolio-info">
+            <h4>Paket 6 Kursi & Meja Panjang</h4>
+            <p>Rp. 90.000/hari</p>
+           
+            <a href="#" class="btn sewa-btn" data-name="Paket 6 Kursi & Meja Panjang" data-price="90000">Sewa</a>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+      <!-- Produk 12 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="12.Tas Carier.jpg" alt="Pompa Matras">
+          <div class="portfolio-info">
+            <h4>Tas Carier</h4>
+            <p>Rp. 35.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Tas Carier" data-price="35000">Sewa</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 13 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="13.Tas Daypack.jpg" alt="Gelas Camping">
+          <div class="portfolio-info">
+            <h4>Tas Daypack</h4>
+            <p>Rp. 25.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Tas Daypack" data-price="25000">Sewa</a>
+           
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 14 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="14.Jaket Gunung.jpg" alt="Tenda Dome">
+          <div class="portfolio-info">
+            <h4>Jaket Gunung</h4>
+            <p>Rp. 20.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Jaket Gunung" data-price="20000">Sewa</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 15 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="15.Sepatu Gunung.jpg" alt="Kompor Portable">
+          <div class="portfolio-info">
+            <h4>Sepatu Gunung</h4>
+            <p>Rp. 35.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Sepatu Gunung" data-price="35000">Sewa</a>
+           
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 16 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="16.Tracking Pole.jpg" alt="Matras">
+          <div class="portfolio-info">
+            <h4>Tracking Pole</h4>
+            <p>Rp. 20.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Tracking Pole" data-price="20000">Sewa</a>
+           
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 17 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="17.Matras.jpg" alt="Sleeping Bag">
+          <div class="portfolio-info">
+            <h4>Matras</h4>
+            <p>Rp. 5.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Matras" data-price="5000">Sewa</a>
+           
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 18 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="18.Matras Foil.jpg" alt="Carrier 60L">
+          <div class="portfolio-info">
+            <h4>Matras Foil</h4>
+            <p>Rp. 10.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Matras Foil" data-price="10000">Sewa</a>
+          
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 19 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="19.Hammock.jpg" alt="Jas Hujan">
+          <div class="portfolio-info">
+            <h4>Hammock</h4>
+            <p>Rp. 15.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Hammock" data-price="15000">Sewa</a>
+           
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 20 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="20.Headlamp.jpg" alt="Lampu Senter">
+          <div class="portfolio-info">
+            <h4>Headlamp</h4>
+            <p>Rp. 10.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Headlamp" data-price="10000">Sewa</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 21 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="21.Lampu Tenda.jpg" alt="Trekking Poles">
+          <div class="portfolio-info">
+            <h4>Lampu Tenda</h4>
+            <p>Rp. 10.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Lampu Tenda" data-price="10000">Sewa</a>
+          
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 22 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="22.Kompor Kotak.jpg" alt="Tenda Camping">
+          <div class="portfolio-info">
+            <h4>Kompor Kontak</h4>
+            <p>Rp. 15.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Kompor Kontak" data-price="15000">Sewa</a>
+     
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 23 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="23.Kompor Kembang.jpg" alt="Cooler Box">
+          <div class="portfolio-info">
+            <h4>Kompor Kembang</h4>
+            <p>Rp. 20.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Kompor Kembang" data-price="20000">Sewa</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 24 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="24.Kompor Portable.jpg" alt="Alat Masak">
+          <div class="portfolio-info">
+            <h4>Kompor Portable</h4>
+            <p>Rp. 25.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Kompor Portable" data-price="25000">Sewa</a>
+      
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+      <!-- Produk 25 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="25.Cooking Set.jpg" alt="Pompa Matras">
+          <div class="portfolio-info">
+            <h4>Cooking Set</h4>
+            <p>Rp. 20.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Cooking Set" data-price="20000">Sewa</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 26 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="26.Sleeping Bag.jpg" alt="Gelas Camping">
+          <div class="portfolio-info">
+            <h4>Sleeping Bag</h4>
+            <p>Rp. 15.000/hari</p>
+            <a href="#" class="btn sewa-btn" data-name="Sleeping Bag" data-price="15000">Sewa</a>
+           
+          </div>
+        </div>
+      </div>
+
+        <!-- Produk 27 -->
+        <div class="portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="27.Tempat Telur.jpg" alt="Tenda Dome">
+            <div class="portfolio-info">
+              <h4>Tempat Telur</h4>
+              <p>Rp. 5.000/hari</p>
+              <a href="#" class="btn sewa-btn" data-name="Tempat Telur" data-price="5000">Sewa</a>
+              
+            </div>
+          </div>
+        </div>
+  
+        <!-- Produk 28 -->
+        <div class="portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="28.Tiang Flysheet.jpg" alt="Kompor Portable">
+            <div class="portfolio-info">
+              <h4>Tiang Flysheet</h4>
+              <p>Rp. 5.000/hari</p>
+              <a href="#" class="btn sewa-btn" data-name="Tiang Flysheet" data-price="5000">Sewa</a>
+             
+            </div>
+          </div>
+        </div>
+  
+        <!-- Produk 29 -->
+        <div class="portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="29.Flag Karnaval.jpg" alt="Matras">
+            <div class="portfolio-info">
+              <h4>Flag Karnaval</h4>
+              <p>Rp. 5.000/hari</p>
+              <a href="#" class="btn sewa-btn" data-name="Flag Karnaval" data-price="5000">Sewa</a>
+             
+            </div>
+          </div>
+        </div>
+  
+        <!-- Produk 30 -->
+        <div class="portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="30.Topi Rimba.jpg" alt="Sleeping Bag">
+            <div class="portfolio-info">
+              <h4>Topi Rimba</h4>
+              <p>Rp. 10.000/hari</p>
+              <a href="#" class="btn sewa-btn" data-name="Topi Rimba" data-price="10000">Sewa</a>
+             
+            </div>
+          </div>
+        </div>
+  
+        <!-- Produk 31 -->
+        <div class="portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="31.Bantal Tiup.jpg" alt="Carrier 60L">
+            <div class="portfolio-info">
+              <h4>Bantal Tiup</h4>
+              <p>Rp. 5.000/hari</p>
+              <a href="#" class="btn sewa-btn" data-name="Bantal Tiup" data-price="5000">Sewa</a>
+            
+            </div>
+          </div>
+        </div>
+  
+        <!-- Produk 32 -->
+        <div class="portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="32.Tripod.jpg" alt="Jas Hujan">
+            <div class="portfolio-info">
+              <h4>Tripod</h4>
+              <p>Rp. 10.000/hari</p>
+              <a href="#" class="btn sewa-btn" data-name="Tripod" data-price="10000">Sewa</a>
+             
+            </div>
+          </div>
+        </div>
+  
+        <!-- Produk 33 -->
+        <div class="portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="33.Flysheet.jpg" alt="Lampu Senter">
+            <div class="portfolio-info">
+              <h4>Flysheet</h4>
+              <p>Rp. 15.000/hari</p>
+              <a href="#" class="btn sewa-btn" data-name="Flysheet" data-price="10000">Sewa</a>
+              
+            </div>
+          </div>
+        </div>
+
+
+       
+      
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Kontak Kami</h2>
+    <p>Hubungi kami untuk informasi lebih lanjut atau pemesanan alat outdoor!</p>
+
+    <form action="#">
+      <input type="text" name="name" placeholder="Nama Anda" required>
+      <input type="email" name="email" placeholder="Email Anda" required>
+      <input type="text" name="subject" placeholder="Judul Pesan" required>
+      <textarea name="message" rows="5" placeholder="Pesan Anda" required></textarea>
+      <button type="submit">Kirim Pesan</button>
+    </form>
+
+    <div style="margin-top: 30px;">
+      <p><strong>Lokasi:</strong> Jl. Raya Serang, Tangerang Banten</p>
+      <p><strong>Email:</strong> outdoorkwstore@gmail.com</p>
+      <p><strong>Telepon:</strong> +62 812 3456 7890</p>
+    </div>
+  </section>
+
+
+  <!-- Keranjang Sidebar -->
+<!-- Keranjang Sidebar -->
+<div id="cart" class="cart-container">
+  <div class="cart-header">
+    <h2>Keranjang</h2>
+    <button id="close-cart" class="close-btn">X</button>
+  </div>
+  <div class="cart-items"></div>
+  <div class="cart-footer">
+    <div style="margin-bottom: 10px;">
+      <label>Tanggal Mulai Sewa:
+        <input type="text" id="rent-start-date" placeholder="Pilih tanggal mulai..." required>
+      </label>
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label>Tanggal Selesai Sewa:
+        <input type="text" id="rent-end-date" placeholder="Pilih tanggal selesai..." required>
+      </label>
+    </div>
+    <button class="checkout-btn">Checkout</button>
+  </div>
+</div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 OutdoorRental. All rights reserved.
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    const logoutBtn = document.getElementById('logout-btn');
+    const loginBtn = document.querySelector('a[href="login.html"]');
+    const registrasiBtn = document.querySelector('a[href="registrasi.html"]');
+
+    function checkLoginStatus() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (currentUser) {
+        loginBtn.style.display = 'none';
+        registrasiBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+      } else {
+        loginBtn.style.display = 'inline-block';
+        registrasiBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+      }
+    }
+
+    checkLoginStatus();
+
+    logoutBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (confirm('Apakah Anda yakin ingin logout?')) {
+        localStorage.removeItem('currentUser');
+        alert('Anda telah berhasil logout');
+        window.location.reload();
+      }
+    });
+
+    const sewaButtons = document.querySelectorAll('.sewa-btn');
+    const cart = document.getElementById('cart');
+    const closeCart = document.getElementById('close-cart');
+    const openCart = document.getElementById('open-cart');
+    const cartItems = document.querySelector('.cart-items');
+    const checkoutBtn = document.querySelector('.checkout-btn');
+    const rentStartDateInput = document.getElementById('rent-start-date');
+    const rentEndDateInput = document.getElementById('rent-end-date');
+  
+    // Load cart data from localStorage
+    let cartData = JSON.parse(localStorage.getItem('outdoorCart')) || [];
+    let rentStart = null;
+    let rentEnd = null;
+  
+    function getRentDays() {
+      if (!rentStart || !rentEnd) return 0;
+      const msPerDay = 24 * 60 * 60 * 1000;
+      const diff = Math.round((rentEnd - rentStart) / msPerDay);
+      return diff > 0 ? diff : 1; // minimal 1 hari
+    }
+  
+    function saveCartToStorage() {
+      localStorage.setItem('outdoorCart', JSON.stringify(cartData));
+      saveStockToStorage();
+      updateCartCount();
+    }
+  
+    function updateCartCount() {
+      const cartCount = document.getElementById('cart-count');
+      const totalItems = cartData.reduce((sum, item) => sum + item.qty, 0);
+      
+      if (totalItems > 0) {
+        cartCount.textContent = totalItems;
+        cartCount.classList.add('show');
+      } else {
+        cartCount.classList.remove('show');
+      }
+    }
+  
+    function renderCart() {
+      cartItems.innerHTML = '';
+      const days = getRentDays();
+      
+      cartData.forEach((item, index) => {
+        const total = item.price * item.qty * days;
+        const itemDiv = document.createElement('div');
+        itemDiv.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div>
+              <strong>${item.name}</strong><br>
+              Rp ${(total).toLocaleString()} (${item.qty} barang × ${days} hari)
+            </div>
+            <button class="hapus-btn" data-index="${index}" style="background: none; border: none; color: #ff4444; cursor: pointer; padding: 5px;">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <div>
+            <button class="kurang-btn" data-index="${index}">-</button>
+            <button class="tambah-btn" data-index="${index}">+</button>
+          </div>
+          <hr>
+        `;
+        cartItems.appendChild(itemDiv);
+      });
+      
+      updateCartCount();
+      addQtyListeners();
+      addHapusListeners();
+    }
+  
+    function addQtyListeners() {
+      document.querySelectorAll('.tambah-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = btn.getAttribute('data-index');
+          const item = cartData[index];
+          const productName = item.name;
+          
+          if (productStock[productName] > 0) {
+            cartData[index].qty++;
+            productStock[productName]--;
+            updateStockDisplay(productName);
+            saveCartToStorage();
+            renderCart();
+            updateCartCount();
+          } else {
+            alert(`Maaf, stok ${productName} sudah habis`);
+          }
+        });
+      });
+  
+      document.querySelectorAll('.kurang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = btn.getAttribute('data-index');
+          if (cartData[index].qty > 1) {
+            const productName = cartData[index].name;
+            cartData[index].qty--;
+            productStock[productName]++;
+            updateStockDisplay(productName);
+            saveCartToStorage();
+            renderCart();
+            updateCartCount();
+          }
+        });
+      });
+    }
+  
+    function addHapusListeners() {
+      document.querySelectorAll('.hapus-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = btn.getAttribute('data-index');
+          if (confirm('Apakah Anda yakin ingin menghapus barang ini dari keranjang?')) {
+            const item = cartData[index];
+            const productName = item.name;
+            const qtyToReturn = item.qty;
+            
+            productStock[productName] += qtyToReturn;
+            updateStockDisplay(productName);
+            
+            cartData.splice(index, 1);
+            saveCartToStorage();
+            renderCart();
+            updateCartCount();
+          }
+        });
+      });
+    }
+  
+    // Ubah data stok untuk semua produk menjadi 26
+    const productStock = {
+      "Tenda Kap 2 Orang": 26,
+      "Tenda Kap 4 Orang": 26,
+      "Tenda Double Layer 2 Orang": 26,
+      "Tenda Double Layer 4 Orang": 26,
+      "Hydropack": 26,
+      "Meja Persegi": 26,
+      "Meja Panjang": 26,
+      "Kursi Lipat": 26,
+      "Kursi Jumbo": 26,
+      "Paket 4 Kursi & Meja": 26,
+      "Paket 6 Kursi & Meja Panjang": 26,
+      "Tas Carier": 26,
+      "Tas Daypack": 26,
+      "Jaket Gunung": 26,
+      "Sepatu Gunung": 26,
+      "Tracking Pole": 26,
+      "Matras": 26,
+      "Matras Foil": 26,
+      "Hammock": 26,
+      "Headlamp": 26,
+      "Lampu Tenda": 26,
+      "Kompor Kontak": 26,
+      "Kompor Kembang": 26,
+      "Kompor Portable": 26,
+      "Cooking Set": 26,
+      "Sleeping Bag": 26,
+      "Tempat Telur": 26,
+      "Tiang Flysheet": 26,
+      "Flag Karnaval": 26,
+      "Topi Rimba": 26,
+      "Bantal Tiup": 26,
+      "Tripod": 26,
+      "Flysheet": 26
+    };
+  
+    // Tambahkan ini di awal skrip untuk menghapus data stok sebelumnya
+    localStorage.removeItem('productStock');
+    
+    // Simpan stok baru ke localStorage
+    localStorage.setItem('productStock', JSON.stringify(productStock));
+  
+    // Perbaiki fungsi event listener pada tombol sewa
+    sewaButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+          alert('Silakan login terlebih dahulu untuk melakukan sewa');
+          window.location.href = 'login-user.html';
+          return;
+        }
+
+        const name = button.getAttribute('data-name');
+        const price = parseInt(button.getAttribute('data-price'));
+        
+        if (productStock[name] === undefined || productStock[name] === 0) {
+          alert(`Maaf, ${name} sedang tidak tersedia (stok habis)`);
+          return;
+        }
+        
+        const existing = cartData.find(item => item.name === name);
+        if (existing) {
+          existing.qty++;
+          productStock[name]--;
+        } else {
+          cartData.push({ name, price, qty: 1 });
+          productStock[name]--;
+        }
+        
+        updateStockDisplay(name);
+        saveCartToStorage();
+        renderCart();
+        updateCartCount();
+        
+        // Tambahkan alert konfirmasi
+        alert(`${name} berhasil ditambahkan ke keranjang!`);
+      });
+    });
+  
+    closeCart.addEventListener('click', () => cart.classList.remove('show'));
+    openCart.addEventListener('click', (e) => {
+      e.preventDefault();
+      cart.classList.add('show');
+      renderCart();
+    });
+  
+    // Updated Checkout Function
+    checkoutBtn.addEventListener('click', function() {
+      if (cartData.length === 0) {
+        alert('Keranjang kosong!');
+        return;
+      }
+  
+      if (!rentStart || !rentEnd) {
+        alert('Pilih tanggal sewa terlebih dahulu!');
+        return;
+      }
+  
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (!currentUser) {
+        alert('Silakan login terlebih dahulu');
+        window.location.href = 'login-user.html';
+        return;
+      }
+  
+      // Calculate total
+      const days = getRentDays();
+      const total = cartData.reduce((sum, item) => sum + (item.price * item.qty * days), 0);
+  
+      // Update payment total
+      document.getElementById('paymentTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+  
+      // Show payment modal
+      const paymentModal = document.getElementById('paymentModal');
+      paymentModal.style.display = 'block';
+    });
+  
+    flatpickr('#rent-start-date', {
+      dateFormat: 'Y-m-d',
+      onChange: function(selectedDates) {
+        rentStart = selectedDates[0];
+        // Update minDate untuk rent-end-date
+        endDatePicker.set('minDate', rentStart);
+        renderCart();
+      }
+    });
+
+    const endDatePicker = flatpickr('#rent-end-date', {
+      dateFormat: 'Y-m-d',
+      minDate: 'today',
+      onChange: function(selectedDates) {
+        rentEnd = selectedDates[0];
+        renderCart();
+      }
+    });
+  
+    // Render cart on page load if there are items
+    if (cartData.length > 0) {
+      renderCart();
+    }
+
+    // Hapus modal yang ada
+    const oldModal = document.getElementById('paymentModal');
+    if (oldModal) {
+      oldModal.remove();
+    }
+
+    // Buat modal baru
+    const newModal = document.createElement('div');
+    newModal.id = 'paymentModal';
+    newModal.className = 'modal-payment';
+    newModal.innerHTML = `
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Pilih Metode Pembayaran</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="payment-methods">
+            <div class="payment-method" data-method="tempat">
+              <img src="https://cdn-icons-png.flaticon.com/512/2331/2331717.png" alt="Pembayaran di Tempat">
+              <span>Bayar di Tempat</span>
+            </div>
+            <div class="payment-method" data-method="dana">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/1200px-Logo_dana_blue.svg.png" alt="DANA">
+              <span>DANA</span>
+            </div>
+            <div class="payment-method" data-method="ovo">
+              <img src="ovo.png" alt="OVO">
+              <span>OVO</span>
+            </div>
+          </div>
+          <div class="payment-summary">
+            <h4>Ringkasan Pembayaran</h4>
+            <p>Total: <span id="paymentTotal">Rp 0</span></p>
+            <p>Metode: <span id="selectedMethod">-</span></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="confirmPayment" class="btn-confirm">Konfirmasi Pembayaran</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(newModal);
+
+    // Tambahkan event listener untuk metode pembayaran
+    document.querySelectorAll('.payment-method').forEach(method => {
+      method.onclick = function() {
+        // Reset semua metode
+        document.querySelectorAll('.payment-method').forEach(m => {
+          m.style.borderColor = '#ddd';
+          m.style.backgroundColor = 'white';
+        });
+        
+        // Highlight metode yang dipilih
+        this.style.borderColor = '#1e724c';
+        this.style.backgroundColor = 'rgba(30, 114, 76, 0.1)';
+        
+        // Update metode yang dipilih
+        const selectedMethod = this.getAttribute('data-method');
+        document.getElementById('selectedMethod').textContent = selectedMethod.toUpperCase();
+        window.selectedPaymentMethod = selectedMethod;
+      };
+    });
+
+    // Event listener untuk tombol close
+    document.querySelector('.close-modal').onclick = function() {
+      document.getElementById('paymentModal').style.display = 'none';
+    };
+
+    // Event listener untuk tombol konfirmasi
+    document.getElementById('confirmPayment').onclick = function() {
+      if (!window.selectedPaymentMethod) {
+        alert('Silakan pilih metode pembayaran terlebih dahulu!');
+        return;
+      }
+      
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const days = getRentDays();
+      const total = cartData.reduce((sum, item) => sum + (item.price * item.qty * days), 0);
+
+      const newTransaction = {
+        id: Date.now(),
+        date: new Date().toLocaleString(),
+        customer: currentUser.name,
+        startDate: rentStart.toISOString().split('T')[0],
+        endDate: rentEnd.toISOString().split('T')[0],
+        items: [...cartData],
+        total: total,
+        status: "Menunggu Konfirmasi",
+        paymentMethod: window.selectedPaymentMethod
+      };
+
+      // Simpan transaksi
+      const transactions = JSON.parse(localStorage.getItem('adminTransactions')) || [];
+      transactions.push(newTransaction);
+      localStorage.setItem('adminTransactions', JSON.stringify(transactions));
+
+      const userTransactions = JSON.parse(localStorage.getItem('userTransactions')) || [];
+      userTransactions.push(newTransaction);
+      localStorage.setItem('userTransactions', JSON.stringify(userTransactions));
+
+      // Reset keranjang
+      cartData = [];
+      saveCartToStorage();
+      rentStartDateInput.value = '';
+      rentEndDateInput.value = '';
+      rentStart = null;
+      rentEnd = null;
+      
+      // Tutup modal
+      document.getElementById('paymentModal').style.display = 'none';
+      
+      alert(`Terima kasih ${currentUser.name}! Transaksi berhasil. Admin akan menghubungi Anda.`);
+      window.location.href = 'riwayat.html';
+    };
+
+    // Tambahkan kode ini untuk menyimpan stok di localStorage
+    function saveStockToStorage() {
+      localStorage.setItem('productStock', JSON.stringify(productStock));
+    }
+
+    // Tambahkan kode ini untuk memuat stok dari localStorage
+    function loadStockFromStorage() {
+      const savedStock = localStorage.getItem('productStock');
+      if (savedStock) {
+        try {
+          // Gabungkan stok yang tersimpan dengan stok default
+          const loadedStock = JSON.parse(savedStock);
+          for (const key in loadedStock) {
+            productStock[key] = parseInt(loadedStock[key]); // Pastikan ini adalah angka
+          }
+          console.log("Stok berhasil dimuat:", productStock);
+        } catch (error) {
+          console.error("Error memuat stok:", error);
+        }
+      }
+    }
+
+    // Panggil loadStockFromStorage di awal script
+    loadStockFromStorage();
+
+    // Pastikan elemen stok ditampilkan untuk semua produk
+    document.querySelectorAll('.portfolio-info').forEach(info => {
+      const productNameElement = info.querySelector('h4');
+      if (!productNameElement) return;
+      
+      let productName = productNameElement.textContent.trim();
+      
+      // Debug
+      console.log(`Menampilkan stok untuk: "${productName}", nilai stok: ${productStock[productName]}`);
+      
+      // Buat elemen stok
+      const stockElement = document.createElement('p');
+      stockElement.className = 'stock-info';
+      stockElement.setAttribute('data-product', productName);
+      
+      // Gunakan nilai default 0 jika undefined
+      const stock = productStock[productName] !== undefined ? productStock[productName] : 0;
+      stockElement.textContent = `Stok: ${stock}`;
+      
+      // Atur warna berdasarkan ketersediaan
+      if (stock <= 0) {
+        stockElement.style.color = 'red';
+        
+        // Nonaktifkan tombol sewa jika stok habis
+        const sewaBtn = info.querySelector('.sewa-btn');
+        if (sewaBtn) {
+          sewaBtn.classList.add('disabled-btn');
+          sewaBtn.style.backgroundColor = '#cccccc';
+          sewaBtn.style.cursor = 'not-allowed';
+          sewaBtn.innerHTML = 'Stok Habis';
+          sewaBtn.disabled = true;
+        }
+      } else if (stock <= 2) {
+        stockElement.style.color = 'orange';
+      } else {
+        stockElement.style.color = 'green';
+      }
+      
+      // Masukkan elemen stok sebelum tombol sewa
+      const sewaBtn = info.querySelector('.sewa-btn');
+      if (sewaBtn) {
+        info.insertBefore(stockElement, sewaBtn);
+      } else {
+        info.appendChild(stockElement);
+      }
+    });
+
+    // Perbaiki fungsi untuk memperbarui tampilan stok
+    function updateStockDisplay(productName) {
+      const stockElements = document.querySelectorAll(`.stock-info[data-product="${productName}"]`);
+      stockElements.forEach(el => {
+        el.textContent = `Stok: ${productStock[productName]}`;
+        
+        // Dapatkan semua tombol sewa untuk produk ini
+        const allButtons = document.querySelectorAll(`.sewa-btn[data-name="${productName}"]`);
+        
+        if (productStock[productName] === 0) {
+          // Jika stok 0, ubah tampilan jadi merah dan nonaktifkan tombol
+          el.style.color = 'red';
+          
+          allButtons.forEach(btn => {
+            btn.classList.add('disabled-btn');
+            btn.style.backgroundColor = '#cccccc';
+            btn.style.cursor = 'not-allowed';
+            btn.innerHTML = 'Stok Habis';
+            btn.disabled = true;
+          });
+        } else {
+          // Jika stok ada lagi, aktifkan kembali tombol
+          if (productStock[productName] <= 2) {
+            el.style.color = 'orange'; // Stok sedikit
+          } else {
+            el.style.color = 'green'; // Stok banyak
+          }
+          
+          // Aktifkan kembali tombol sewa yang sebelumnya nonaktif
+          allButtons.forEach(btn => {
+            if (btn.classList.contains('disabled-btn')) {
+              btn.classList.remove('disabled-btn');
+              btn.style.backgroundColor = '#40916c';
+              btn.style.cursor = 'pointer';
+              btn.innerHTML = 'Sewa';
+              btn.disabled = false;
+            }
+          });
+        }
+      });
+    }
+
+    // Tambahkan tombol reset stok di footer untuk debug
+    const footerElement = document.querySelector('footer');
+    const resetStockBtn = document.createElement('button');
+    resetStockBtn.textContent = 'Reset Stok (26)';
+    resetStockBtn.style.marginLeft = '20px';
+    resetStockBtn.style.padding = '10px';
+    resetStockBtn.style.background = '#40916c';
+    resetStockBtn.style.color = 'white';
+    resetStockBtn.style.border = 'none';
+    resetStockBtn.style.borderRadius = '5px';
+    resetStockBtn.style.cursor = 'pointer';
+
+    resetStockBtn.addEventListener('click', function() {
+      if (confirm('Apakah Anda yakin ingin mereset semua stok menjadi 26?')) {
+        // Reset semua stok menjadi 26
+        for (const key in productStock) {
+          productStock[key] = 26;
+        }
+        
+        // Hapus stok sebelumnya dari localStorage
+        localStorage.removeItem('productStock');
+        
+        // Simpan stok baru ke localStorage
+        localStorage.setItem('productStock', JSON.stringify(productStock));
+        
+        // Perbarui tampilan stok di semua produk
+        document.querySelectorAll('.portfolio-info').forEach(info => {
+          const productNameElement = info.querySelector('h4');
+          if (productNameElement) {
+            const productName = productNameElement.textContent.trim();
+            const stockElement = info.querySelector('.stock-info');
+            if (stockElement) {
+              stockElement.textContent = `Stok: 26`;
+              stockElement.style.color = 'green';
+            }
+            
+            // Aktifkan kembali tombol sewa
+            const sewaBtn = info.querySelector('.sewa-btn');
+            if (sewaBtn) {
+              sewaBtn.classList.remove('disabled-btn');
+              sewaBtn.style.backgroundColor = '#40916c';
+              sewaBtn.style.cursor = 'pointer';
+              sewaBtn.innerHTML = 'Sewa';
+              sewaBtn.disabled = false;
+            }
+          }
+        });
+        
+        alert('Stok berhasil direset menjadi 26! Silakan refresh halaman untuk melihat perubahan.');
+        window.location.reload(); // Refresh halaman untuk memastikan perubahan terlihat
+      }
+    });
+
+    footerElement.appendChild(resetStockBtn);
+
+    // Fungsi untuk menampilkan informasi user
+    function displayUserInfo() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const userInfoDiv = document.getElementById('userInfo');
+      
+      if (currentUser) {
+        // Update nama user
+        document.getElementById('userName').textContent = currentUser.name || 'User';
+        // Tampilkan informasi user
+        userInfoDiv.style.display = 'inline-flex';
+        userInfoDiv.style.alignItems = 'center';
+        userInfoDiv.style.gap = '5px';
+      } else {
+        // Sembunyikan informasi user jika belum login
+        userInfoDiv.style.display = 'none';
+      }
+    }
+
+    // Panggil fungsi saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      checkLoginStatus();
+      displayUserInfo();
+      updateCartCount();
+    });
+  </script>
+</body>
+
+</html>

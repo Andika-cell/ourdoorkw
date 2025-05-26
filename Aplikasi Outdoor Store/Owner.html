@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Owner - Penyewaan Alat Outdoor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary-color: #1e724c;
+      --secondary-color: #2a9870;
+      --text-color: #333;
+      --bg-color: #f0f2f5;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      overflow-x: hidden;
+      height: 100vh;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 10px;
+      height: 100vh;
+      position: fixed;
+      width: 180px;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      left: 0;
+    }
+
+    .sidebar h1 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 8px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    /* Content Area */
+    .content {
+      margin-left: 180px;
+      padding: 10px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    /* Card Styles */
+    .card {
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+      height: 100%;
+    }
+
+    .card-body {
+      padding: 10px;
+    }
+
+    .card h5 {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .card p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    /* Table Styles */
+    .table {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .table th {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 6px;
+    }
+
+    .table td {
+      padding: 6px;
+    }
+
+    /* Product Carousel */
+    .product-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 8px 0;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .product-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product-col {
+      flex: 0 0 25%;
+      min-width: 150px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 6px;
+      padding: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .product-card h6 {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    .product-card p {
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* Section Headers */
+    h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    h4, h5 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 160px;
+      }
+      .content {
+        margin-left: 160px;
+      }
+      .product-col {
+        flex: 0 0 33.333%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 140px;
+      }
+      .content {
+        margin-left: 140px;
+        padding: 8px;
+      }
+      .product-col {
+        flex: 0 0 50%;
+      }
+      .card h5 {
+        font-size: 12px;
+      }
+      .card p {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .sidebar {
+        width: 120px;
+      }
+      .content {
+        margin-left: 120px;
+        padding: 6px;
+      }
+      .product-col {
+        flex: 0 0 100%;
+      }
+      .card-body {
+        padding: 8px;
+      }
+      .table {
+        font-size: 12px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      h4, h5 {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h1>Outdoor KW Store</h1>
+      <ul>
+        <li><a href="#">🏢 Dashboard Owner</a></li>
+        <li><a href="login.html">🚪 Logout</a></li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <h2 class="text-center">Dashboard Owner</h2>
+
+      <!-- Ringkasan Bisnis -->
+      <section>
+        <h4>👑 Ringkasan Bisnis</h4>
+        <div class="row g-2 mb-2">
+          <div class="col-6 col-md-3">
+            <div class="card text-bg-primary text-center">
+              <div class="card-body">
+                <h5>Total Produk</h5>
+                <p id="totalProduk">33 item</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card text-bg-success text-center">
+              <div class="card-body">
+                <h5>Transaksi Aktif</h5>
+                <p id="transaksiAktif">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card text-bg-warning text-center">
+              <div class="card-body">
+                <h5>Pendapatan Bulan Ini</h5>
+                <p id="pendapatanBulanan">Rp 0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card text-bg-info text-center">
+              <div class="card-body">
+                <h5>Customer Baru</h5>
+                <p id="customerBaru">0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grafik -->
+        <h5>📊 Statistik Penyewaan</h5>
+        <div class="card mb-2">
+          <div class="card-body">
+            <canvas id="penyewaanChart" height="60"></canvas>
+          </div>
+        </div>
+
+        <!-- Alat Tersedia -->
+        <h5>🎒 Alat Tersedia</h5>
+        <div class="product-row" id="alatCarousel">
+          <!-- Products will be loaded dynamically -->
+        </div>
+
+        <!-- Laporan -->
+        <h5>📄 Laporan Penyewaan Terbaru</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Customer</th>
+                <th>Alat</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="laporanTable">
+              <!-- Data akan diisi secara realtime -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // Load products
+    function loadProducts() {
+      const products = [
+        { img: "1.Tenda Kap 2 Orang.jpg", name: "Tenda Kap 2 Orang", price: 35000 },
+        { img: "2.Tenda Kap 4 Orang.jpg", name: "Tenda Kap 4 Orang", price: 45000 },
+        { img: "3.Tenda Double Layer 2 Orang.jpg", name: "Tenda Double Layer 2 Orang", price: 50000 },
+        { img: "4.Tenda Double Layer 4 Orang.jpg", name: "Tenda Double Layer 4 Orang", price: 60000 },
+        { img: "5.Hydropack.jpg", name: "Hydropack", price: 25000 },
+        { img: "6.Meja Persegi.jpg", name: "Meja Persegi", price: 20000 },
+        { img: "7.Meja Panjang.jpg", name: "Meja Panjang", price: 30000 },
+        { img: "8.Kursi Lipat.jpg", name: "Kursi Lipat", price: 15000 },
+        { img: "9.Kursi Jumbo.jpg", name: "Kursi Jumbo", price: 25000 },
+        { img: "10.Paket 4 Kursi & Meja.jpg", name: "Paket 4 Kursi & Meja", price: 70000 },
+        { img: "11.Paket 6 Kursi & Meja Panjang.jpg", name: "Paket 6 Kursi & Meja Panjang", price: 90000 },
+        { img: "12.Tas Carier.jpg", name: "Tas Carier", price: 35000 },
+        { img: "13.Tas Daypack.jpg", name: "Tas Daypack", price: 25000 },
+        { img: "14.Jaket Gunung.jpg", name: "Jaket Gunung", price: 20000 },
+        { img: "15.Sepatu Gunung.jpg", name: "Sepatu Gunung", price: 35000 },
+        { img: "16.Tracking Pole.jpg", name: "Tracking Pole", price: 20000 },
+        { img: "17.Matras.jpg", name: "Matras", price: 5000 },
+        { img: "18.Matras Foil.jpg", name: "Matras Foil", price: 10000 },
+        { img: "19.Hammock.jpg", name: "Hammock", price: 15000 },
+        { img: "20.Headlamp.jpg", name: "Headlamp", price: 10000 },
+        { img: "21.Lampu Tenda.jpg", name: "Lampu Tenda", price: 10000 },
+        { img: "22.Kompor Kotak.jpg", name: "Kompor Kotak", price: 15000 },
+        { img: "23.Kompor Kembang.jpg", name: "Kompor Kembang", price: 20000 },
+        { img: "24.Kompor Portable.jpg", name: "Kompor Portable", price: 25000 },
+        { img: "25.Cooking Set.jpg", name: "Cooking Set", price: 20000 },
+        { img: "26.Sleeping Bag.jpg", name: "Sleeping Bag", price: 15000 },
+        { img: "27.Tempat Telur.jpg", name: "Tempat Telur", price: 5000 },
+        { img: "28.Tiang Flysheet.jpg", name: "Tiang Flysheet", price: 5000 },
+        { img: "29.Flag Karnaval.jpg", name: "Flag Karnaval", price: 5000 },
+        { img: "30.Topi Rimba.jpg", name: "Topi Rimba", price: 10000 },
+        { img: "31.Bantal Tiup.jpg", name: "Bantal Tiup", price: 5000 },
+        { img: "32.Tripod.jpg", name: "Tripod", price: 10000 },
+        { img: "33.Flysheet.jpg", name: "Flysheet", price: 15000 }
+      ];
+
+      const carousel = document.getElementById('alatCarousel');
+      carousel.innerHTML = '';
+
+      products.forEach(product => {
+        const col = document.createElement('div');
+        col.className = 'product-col';
+        col.innerHTML = `
+          <div class="product-card">
+            <img src="${product.img}" alt="${product.name}">
+            <h6>${product.name}</h6>
+            <p>Rp ${product.price.toLocaleString()}/hari</p>
+          </div>
+        `;
+        carousel.appendChild(col);
+      });
+    }
+
+    // Update laporan penyewaan terbaru
+    function updateLaporanTable() {
+      const transactions = JSON.parse(localStorage.getItem('adminTransactions')) || [];
+      const tableBody = document.getElementById('laporanTable');
+      tableBody.innerHTML = '';
+
+      const sortedTransactions = transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const latestTransactions = sortedTransactions.slice(0, 5);
+
+      latestTransactions.forEach(transaction => {
+        const row = document.createElement('tr');
+        
+        const date = new Date(transaction.date);
+        const formattedDate = date.toLocaleDateString('id-ID', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+
+        const formattedTotal = new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR'
+        }).format(transaction.total);
+
+        let statusClass = 'badge bg-secondary';
+        if (transaction.status === 'Selesai') {
+          statusClass = 'badge bg-success';
+        } else if (transaction.status === 'Dalam Proses') {
+          statusClass = 'badge bg-warning';
+        } else if (transaction.status === 'Menunggu Konfirmasi') {
+          statusClass = 'badge bg-info';
+        }
+
+        row.innerHTML = `
+          <td>${formattedDate}</td>
+          <td>${transaction.customer}</td>
+          <td>${transaction.items.map(item => item.name).join(', ')}</td>
+          <td>${formattedTotal}</td>
+          <td><span class="${statusClass}">${transaction.status}</span></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Update data dashboard secara realtime
+    function updateDashboardData() {
+      const transactions = JSON.parse(localStorage.getItem('adminTransactions')) || [];
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      
+      document.getElementById('totalProduk').textContent = '33 item';
+      
+      const activeTransactions = transactions.filter(t => t.status === 'Dalam Proses' || t.status === 'Menunggu Konfirmasi');
+      document.getElementById('transaksiAktif').textContent = activeTransactions.length;
+      
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+      const monthlyIncome = transactions
+        .filter(t => {
+          const date = new Date(t.date);
+          return date.getMonth() === currentMonth && 
+                 date.getFullYear() === currentYear && 
+                 t.status === 'Selesai';
+        })
+        .reduce((sum, t) => sum + t.total, 0);
+      document.getElementById('pendapatanBulanan').textContent = 
+        new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR'
+        }).format(monthlyIncome);
+      
+      const newCustomers = users.filter(u => {
+        const userDate = new Date(u.registrationDate);
+        return userDate.getMonth() === currentMonth && 
+               userDate.getFullYear() === currentYear;
+      });
+      document.getElementById('customerBaru').textContent = newCustomers.length;
+
+      updateChart();
+      updateLaporanTable();
+    }
+
+    // Update grafik
+    function updateChart() {
+      const transactions = JSON.parse(localStorage.getItem('adminTransactions')) || [];
+      const ctx = document.getElementById('penyewaanChart').getContext('2d');
+      
+      const monthlyData = Array(12).fill(0);
+      transactions.forEach(t => {
+        if (t.status === 'Selesai') {
+          const date = new Date(t.date);
+          const month = date.getMonth();
+          monthlyData[month] += t.total;
+        }
+      });
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'],
+          datasets: [{
+            label: 'Pendapatan',
+            data: monthlyData,
+            borderColor: '#1e724c',
+            backgroundColor: 'rgba(30, 114, 76, 0.1)',
+            tension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return 'Rp ' + value.toLocaleString('id-ID');
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Load products on page load
+    window.addEventListener('load', () => {
+      loadProducts();
+      updateDashboardData();
+    });
+
+    // Update data setiap 5 detik
+    setInterval(updateDashboardData, 5000);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

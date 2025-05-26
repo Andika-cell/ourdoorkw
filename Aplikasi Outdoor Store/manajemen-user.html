@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outdoor KW Store - Manajemen User</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      background-color: #f0f2f5;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(135deg, #1e724c, #2a9870);
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidebar h1 {
+      font-size: 20px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+    }
+
+    .sidebar li {
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      overflow-x: auto;
+    }
+
+    .user-management {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-bar input {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      flex: 1;
+    }
+
+    .search-bar select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+    }
+
+    .btn-info {
+      background-color: #17a2b8;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f7f7f7;
+    }
+
+    .user-status {
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .status-active {
+      background-color: #28a745;
+    }
+
+    .status-inactive {
+      background-color: #dc3545;
+    }
+
+    .status-pending {
+      background-color: #ffc107;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0;
+      }
+
+      .sidebar h1 {
+        display: none;
+      }
+
+      .sidebar ul {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+      }
+
+      .sidebar li {
+        margin: 0 10px;
+      }
+
+      .content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h1>Outdoor KW Store</h1>
+    <ul>
+      <li><a href="admin.html">📊 Dashboard</a></li>
+      <li><a href="manajemen-produk.html">📦 Manajemen Produk</a></li>
+      <li><a href="manajemen-user.html" class="active">👥 Manajemen User</a></li>
+      <li><a href="laporan.html">📈 Laporan</a></li>
+      <li><a href="login.html" class="btn btn-danger">🚪 Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="user-management">
+      <h2>Manajemen User</h2>
+      
+      <div class="search-bar">
+        <input type="text" id="searchUser" placeholder="Cari user...">
+        <select id="statusFilter">
+          <option value="all">Semua Status</option>
+          <option value="active">Aktif</option>
+          <option value="inactive">Tidak Aktif</option>
+          <option value="pending">Menunggu</option>
+        </select>
+        <button class="btn btn-primary" onclick="showAddUserModal()">Tambah User</button>
+      </div>
+      
+      <table id="userTable">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Terakhir Login</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="userBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal Tambah/Edit User -->
+  <div id="userModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Tambah User</h3>
+      <form id="userForm">
+        <div class="form-group">
+          <label for="userName">Nama Lengkap:</label>
+          <input type="text" id="userName" required>
+        </div>
+        <div class="form-group">
+          <label for="userEmail">Email:</label>
+          <input type="email" id="userEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="userPassword">Password:</label>
+          <input type="password" id="userPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="userRole">Role:</label>
+          <select id="userRole" required>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="userStatus">Status:</label>
+          <select id="userStatus" required>
+            <option value="active">Aktif</option>
+            <option value="inactive">Tidak Aktif</option>
+            <option value="pending">Menunggu</option>
+          </select>
+        </div>
+        <div style="margin-top: 20px;">
+          <button type="submit" class="btn">Simpan</button>
+          <button type="button" class="btn btn-danger" onclick="closeUserModal()">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="manajemen-user.js"></script>
+</body>
+</html> 

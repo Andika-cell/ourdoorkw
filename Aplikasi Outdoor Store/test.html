@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outdoor KW Store - Form Peminjaman</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: linear-gradient(1135deg, #1e724c, #2a9870);
+      color: white;
+      width: 250px;
+      padding: 20px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: white;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 15px 0;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      display: block;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 40px;
+      flex: 1;
+      background-color: #eef2f7;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #f7f7f7;
+    }
+
+    .stock {
+      background-color: #4CAF50;
+      color: white;
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .status {
+      background-color: #28a745;
+      color: white;
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .pinjam-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #1e3c72;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .pinjam-btn:hover {
+      background-color: #16305a;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+
+      .main-content {
+        margin-left: 200px;
+        padding: 20px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      .pinjam-btn {
+        padding: 8px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        width: 150px;
+      }
+
+      .main-content {
+        margin-left: 150px;
+      }
+
+      .header h1 {
+        font-size: 20px;
+      }
+
+      .sidebar h2 {
+        font-size: 18px;
+      }
+
+      table {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>Outdoor KW Store</h2>
+    <ul>
+      <li><a href="index.html">🏠 Halaman Utama</a></li>
+      <li><a href="">📝 Form Peminjaman</a></li>
+      <li><a href="status.html">📄 Status Peminjaman</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div id="form">
+      <h2>Form Peminjaman Alat Outdoor</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Barang</th>
+            <th>Harga Satuan</th>
+            <th>Stok</th>
+            <th>Status</th>
+            <th>Pilih</th>
+          </tr>
+        </thead>
+        <tbody id="alatTable"></tbody>
+      </table>
+      <button class="pinjam-btn" onclick="pinjamAlat()">Pinjam Alat</button>
+    </div>
+  </div>
+
+  <script>
+    // Data alat default
+    const defaultDataAlat = [
+      { nama: "Tenda Dome", harga: "Rp. 100.000", stok: 5 },
+      { nama: "Kompor Portable", harga: "Rp. 30.000", stok: 8 },
+      { nama: "Matras", harga: "Rp. 10.000", stok: 20 },
+      { nama: "Sleeping Bag", harga: "Rp. 25.000", stok: 15 },
+      { nama: "Carrier 60L", harga: "Rp. 40.000", stok: 10 },
+      { nama: "Jas Hujan", harga: "Rp. 15.000", stok: 12 },
+      { nama: "Trekking Pole", harga: "Rp. 10.000", stok: 10 },
+      { nama: "Headlamp", harga: "Rp. 8.000", stok: 18 },
+      { nama: "Flysheet", harga: "Rp. 12.000", stok: 6 },
+      { nama: "Nesting Set", harga: "Rp. 20.000", stok: 7 },
+      { nama: "Senter LED", harga: "Rp. 7.000", stok: 14 },
+      { nama: "Gas Kaleng", harga: "Rp. 5.000", stok: 30 },
+      { nama: "Meja Lipat", harga: "Rp. 25.000", stok: 5 },
+      { nama: "Kursi Lipat", harga: "Rp. 15.000", stok: 10 },
+      { nama: "Sepatu Hiking", harga: "Rp. 50.000", stok: 6 }
+    ];
+
+    // Ambil data dari localStorage jika ada, jika tidak gunakan default
+    let dataAlat = JSON.parse(localStorage.getItem("dataAlat")) || defaultDataAlat;
+
+    const tableBody = document.getElementById("alatTable");
+
+    function renderTable() {
+      tableBody.innerHTML = "";
+      dataAlat.forEach((alat, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${alat.nama}</td>
+          <td>${alat.harga}</td>
+          <td><span class="stock">${alat.stok}</span></td>
+          <td><span class="status">${alat.stok > 0 ? "Bisa Dipinjam" : "Habis"}</span></td>
+          <td>
+            <input type="checkbox" class="pinjam-checkbox" data-index="${index}" ${alat.stok <= 0 ? "disabled" : ""}/>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function pinjamAlat() {
+      const checkboxes = document.querySelectorAll(".pinjam-checkbox");
+      const pinjaman = [];
+
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          const index = checkbox.dataset.index;
+          const alat = dataAlat[index];
+          if (alat.stok > 0) {
+            alat.stok -= 1; // Kurangi stok
+            pinjaman.push(alat);
+          }
+        }
+      });
+
+      if (pinjaman.length > 0) {
+        localStorage.setItem("dataPeminjaman", JSON.stringify(pinjaman));
+        localStorage.setItem("dataAlat", JSON.stringify(dataAlat)); // Simpan stok baru
+        alert("Alat berhasil dipinjam! Lihat status di halaman status.html.");
+        window.location.href = "status.html";
+      } else {
+        alert("Silakan pilih alat yang ingin dipinjam.");
+      }
+    }
+
+    renderTable();
+  </script>
+
+</body>
+</html>

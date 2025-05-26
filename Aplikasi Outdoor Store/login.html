@@ -1,0 +1,122 @@
+<!DOCTYPE html> 
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Penyewaan Alat Outdoor</title>
+
+  
+  <a href="indexUtama.html" class="btn" style="margin-top: 20px; display: inline-block;">🏠Home</a>
+
+
+  <style>
+
+    
+   
+        #hero {
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') no-repeat center center/cover;
+      height: 90vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    #hero h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<head>
+  <meta charset="UTF-8">
+  <title>Contoh Styling Huruf</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif; /* Jenis huruf */
+      font-size: 16px;                  /* Ukuran huruf */
+      color: #333333;                   /* Warna huruf */
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: bold;               /* Tebal huruf */
+      color: navy;
+    }
+
+    p {
+      font-style: italic;             /* Huruf miring */
+      line-height: 1.5;               /* Jarak antar baris */
+      text-align: justify;            /* Rata kanan-kiri */
+    }
+
+    .highlight {
+      color: red;
+      font-weight: bold;
+      text-transform: uppercase;      /* Mengubah jadi huruf kapital semua */
+    }
+  </style>
+</head>
+<body>
+  <h1>Selamat Datang</h1>
+  <p>silahkan login</p>
+</body>
+
+<body id="hero" class="d-flex justify-content-center align-items-center vh-100">
+  
+  <div class="card p-4 shadow" style="min-width: 300px;">
+    <h4 class="text-center mb-3">Login</h4>
+    <form onsubmit="return login()">
+      <div class="mb-3">
+        <input type="text" id="username" class="form-control" placeholder="Username" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Masuk</button>
+    </form>
+    <div class="text-danger mt-2" id="error-msg"></div>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+
+      // Login dummy dengan username dan password untuk masing-masing aktor
+      const users = {
+        "Pelanggan": "123",
+        "Admin": "123",
+        "Manajer": "123",
+        "Teknisi": "123",
+        "Owner": "123"
+      };
+
+      const pages = {
+        "Pelanggan": "index.html",
+        "Admin": "admin.html",
+        "Manajer": "manajer.html",
+        "Teknisi": "teknisi.html",
+        "Owner": "Owner.html"
+      };
+
+      if (users[user] && users[user] === pass) {
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = pages[user];
+      } else {
+        document.getElementById("error-msg").textContent = "Username atau password salah.";
+      }
+      
+      return false;
+    }
+  </script>
+</body>
+</html>

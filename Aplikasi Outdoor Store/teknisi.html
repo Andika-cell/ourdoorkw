@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outdoor KW Store - Dashboard Teknisi</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .sidebar {
+      background: linear-gradient(135deg, #1e724c, #2a9870);
+      min-height: 100vh;
+    }
+    
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .sidebar a:hover, .sidebar a.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+    
+    .nav-link {
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .tab-content {
+      padding: 20px;
+    }
+    
+    .card-stats {
+      transition: all 0.3s ease;
+    }
+    
+    .card-stats:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 px-0 sidebar py-3 text-white">
+        <h4 class="text-center mb-4">Outdoor KW Store</h4>
+        <div class="nav flex-column nav-pills">
+          <a class="nav-link active" id="dashboard-tab" data-bs-toggle="pill" href="#dashboard" role="tab">
+            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+          </a>
+          <a class="nav-link" id="perbaikan-tab" data-bs-toggle="pill" href="#perbaikan" role="tab">
+            <i class="fas fa-tools me-2"></i> Perbaikan Alat
+          </a>
+          <a class="nav-link" id="maintenance-tab" data-bs-toggle="pill" href="#maintenance" role="tab">
+            <i class="fas fa-wrench me-2"></i> Maintenance
+          </a>
+          <a class="nav-link" id="laporan-tab" data-bs-toggle="pill" href="#laporan" role="tab">
+            <i class="fas fa-chart-bar me-2"></i> Laporan
+          </a>
+          <a class="nav-link mt-5" href="login.html">
+            <i class="fas fa-sign-out-alt me-2"></i> Logout
+          </a>
+        </div>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="col-md-9 col-lg-10 bg-light">
+        <div class="tab-content">
+          <!-- Dashboard -->
+          <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+            <h2 class="mb-4">Dashboard Teknisi</h2>
+            
+            <!-- Statistics -->
+            <div class="row mb-4">
+              <div class="col-md-3">
+                <div class="card card-stats bg-primary text-white">
+                  <div class="card-body">
+                    <h5 class="card-title">Total Alat</h5>
+                    <h2 id="total-alat">0</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card card-stats bg-warning text-dark">
+                  <div class="card-body">
+                    <h5 class="card-title">Perlu Perbaikan</h5>
+                    <h2 id="perlu-perbaikan">0</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card card-stats bg-info text-white">
+                  <div class="card-body">
+                    <h5 class="card-title">Sedang Diperbaiki</h5>
+                    <h2 id="sedang-perbaikan">0</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card card-stats bg-success text-white">
+                  <div class="card-body">
+                    <h5 class="card-title">Maintenance Bulan Ini</h5>
+                    <h2 id="maintenance-count">0</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Equipment Table -->
+            <div class="card">
+              <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Daftar Alat</h5>
+                <div class="d-flex">
+                  <input type="text" id="search-alat" class="form-control me-2" placeholder="Cari alat...">
+                  <select id="filter-status" class="form-select">
+                    <option value="all">Semua Status</option>
+                    <option value="baik">Baik</option>
+                    <option value="perbaikan">Perlu Perbaikan</option>
+                    <option value="maintenance">Perlu Maintenance</option>
+                  </select>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Kategori</th>
+                        <th>Stok</th>
+                        <th>Status</th>
+                        <th>Terakhir Maintenance</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="alatTable">
+                      <!-- Data akan diisi via JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Perbaikan Tab -->
+          <div class="tab-pane fade" id="perbaikan" role="tabpanel">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h2>Perbaikan Alat</h2>
+              <button class="btn btn-success" id="btnTambahPerbaikan">
+                <i class="fas fa-plus me-2"></i> Tambah Perbaikan
+              </button>
+            </div>
+            
+            <div id="notification-perbaikan"></div>
+            
+            <div class="card">
+              <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Daftar Alat Perlu Perbaikan</h5>
+                <div class="d-flex">
+                  <input type="text" id="search-perbaikan" class="form-control me-2" placeholder="Cari alat...">
+                  <select id="filter-perbaikan" class="form-select">
+                    <option value="all">Semua Status</option>
+                    <option value="ringan">Kerusakan Ringan</option>
+                    <option value="sedang">Kerusakan Sedang</option>
+                    <option value="berat">Kerusakan Berat</option>
+                  </select>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Kategori</th>
+                        <th>Jenis Kerusakan</th>
+                        <th>Deskripsi</th>
+                        <th>Estimasi Waktu</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="perbaikanTable">
+                      <!-- Data akan diisi via JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Maintenance Tab -->
+          <div class="tab-pane fade" id="maintenance" role="tabpanel">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h2>Maintenance Alat</h2>
+              <button class="btn btn-success" id="btnTambahMaintenance">
+                <i class="fas fa-plus me-2"></i> Tambah Maintenance
+              </button>
+            </div>
+            
+            <div id="notification-maintenance"></div>
+            
+            <div class="card">
+              <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Jadwal Maintenance</h5>
+                <div class="d-flex">
+                  <input type="text" id="search-maintenance" class="form-control me-2" placeholder="Cari alat...">
+                  <select id="filter-maintenance" class="form-select">
+                    <option value="all">Semua Status</option>
+                    <option value="rutin">Maintenance Rutin</option>
+                    <option value="khusus">Maintenance Khusus</option>
+                  </select>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Kategori</th>
+                        <th>Jenis Maintenance</th>
+                        <th>Terakhir Maintenance</th>
+                        <th>Maintenance Selanjutnya</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="maintenanceTable">
+                      <!-- Data akan diisi via JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Laporan Tab -->
+          <div class="tab-pane fade" id="laporan" role="tabpanel">
+            <h2 class="mb-4">Laporan Teknisi</h2>
+            
+            <div class="card mb-4">
+              <div class="card-body">
+                <h5 class="card-title mb-3">Filter Laporan</h5>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label>Periode:</label>
+                    <div class="input-group">
+                      <input type="date" id="start-date" class="form-control">
+                      <span class="input-group-text">sampai</span>
+                      <input type="date" id="end-date" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label>Jenis Laporan:</label>
+                    <select id="report-type" class="form-select">
+                      <option value="perbaikan">Laporan Perbaikan</option>
+                      <option value="maintenance">Laporan Maintenance</option>
+                      <option value="semua">Semua Laporan</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-end">
+                    <button onclick="generateReport()" class="btn btn-primary w-100">
+                      <i class="fas fa-file-alt me-2"></i> Generate Laporan
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row mb-4">
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Total Perbaikan</h5>
+                    <h3 id="total-perbaikan" class="text-success">0</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Total Maintenance</h5>
+                    <h3 id="total-maintenance" class="text-primary">0</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Alat Rusak</h5>
+                    <h3 id="total-rusak" class="text-danger">0</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Alat Baik</h5>
+                    <h3 id="total-baik" class="text-success">0</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header bg-white">
+                <h5 class="mb-0">Detail Laporan</h5>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Tanggal</th>
+                        <th>Nama Alat</th>
+                        <th>Kategori</th>
+                        <th>Jenis</th>
+                        <th>Deskripsi</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="reportTable">
+                      <!-- Data akan diisi via JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Perbaikan -->
+  <div class="modal fade" id="modal-perbaikan" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Form Perbaikan Alat</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="form-perbaikan">
+            <input type="hidden" id="alat-id">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Pilih Alat</label>
+                <select id="select-alat" class="form-select" required>
+                  <option value="">Pilih Alat</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Nama Alat</label>
+                <input type="text" id="nama-alat" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Jenis Kerusakan</label>
+                <select id="jenis-kerusakan" class="form-select" required>
+                  <option value="">Pilih Jenis Kerusakan</option>
+                  <option value="ringan">Ringan</option>
+                  <option value="sedang">Sedang</option>
+                  <option value="berat">Berat</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Estimasi Waktu (hari)</label>
+                <input type="number" id="estimasi-waktu" class="form-control" min="1" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Biaya Perbaikan</label>
+                <input type="number" id="biaya-perbaikan" class="form-control" min="0" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Sparepart yang Dibutuhkan</label>
+                <input type="text" id="sparepart" class="form-control" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Deskripsi Kerusakan</label>
+              <textarea id="deskripsi-kerusakan" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="modal-footer px-0 pb-0">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Maintenance -->
+  <div class="modal fade" id="modal-maintenance" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Form Maintenance</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="form-maintenance">
+            <input type="hidden" id="maintenance-id">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Pilih Alat</label>
+                <select id="select-maintenance-alat" class="form-select" required>
+                  <option value="">Pilih Alat</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Nama Alat</label>
+                <input type="text" id="maintenance-nama" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Jenis Maintenance</label>
+                <select id="jenis-maintenance" class="form-select" required>
+                  <option value="">Pilih Jenis Maintenance</option>
+                  <option value="rutin">Rutin</option>
+                  <option value="khusus">Khusus</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Biaya Maintenance</label>
+                <input type="number" id="biaya-maintenance" class="form-control" min="0" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Tanggal Maintenance</label>
+                <input type="date" id="tanggal-maintenance" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Maintenance Selanjutnya</label>
+                <input type="date" id="tanggal-maintenance-selanjutnya" class="form-control" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Deskripsi Maintenance</label>
+              <textarea id="deskripsi-maintenance" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Catatan Khusus</label>
+              <textarea id="catatan-maintenance" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="modal-footer px-0 pb-0">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Data sampel untuk pengujian
+    const alatData = [
+      { id: 1, nama: 'Tenda Dome', kategori: 'Tenda', stok: 15, status: 'baik', lastMaintenance: '2023-11-05' },
+      { id: 2, nama: 'Sleeping Bag', kategori: 'Peralatan Tidur', stok: 20, status: 'baik', lastMaintenance: '2023-10-15' },
+      { id: 3, nama: 'Headlamp', kategori: 'Perlengkapan', stok: 8, status: 'perbaikan', lastMaintenance: '2023-09-20' },
+      { id: 4, nama: 'Kompor Portable', kategori: 'Masak', stok: 12, status: 'maintenance', lastMaintenance: '2023-08-10' }
+    ];
+
+    const perbaikanData = [
+      { id: 1, alatId: 3, nama: 'Headlamp', kategori: 'Perlengkapan', jenisKerusakan: 'ringan', deskripsi: 'Baterai bocor', estimasi: 2, status: 'proses' }
+    ];
+
+    const maintenanceData = [
+      { id: 1, alatId: 4, nama: 'Kompor Portable', kategori: 'Masak', jenis: 'rutin', lastMaintenance: '2023-08-10', nextMaintenance: '2023-11-10', status: 'terjadwal' }
+    ];
+
+    // Event listener saat dokumen dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Dokumen berhasil dimuat');
+      loadDashboardData();
+      loadPerbaikanData();
+      loadMaintenanceData();
+      setupEventListeners();
+    });
+
+    // Setup semua event listener
+    function setupEventListeners() {
+      console.log('Setup event listeners');
+      
+      // Tombol tambah perbaikan
+      const btnTambahPerbaikan = document.getElementById('btnTambahPerbaikan');
+      console.log('Button tambah perbaikan element:', btnTambahPerbaikan);
+      
+      if (btnTambahPerbaikan) {
+        btnTambahPerbaikan.addEventListener('click', function() {
+          console.log('Tombol tambah perbaikan diklik');
+          openPerbaikanModal();
+        });
+      } else {
+        console.error('Button tambah perbaikan tidak ditemukan!');
+      }
+      
+      // Form perbaikan submit
+      const formPerbaikan = document.getElementById('form-perbaikan');
+      if (formPerbaikan) {
+        formPerbaikan.addEventListener('submit', function(e) {
+          e.preventDefault();
+          console.log('Form perbaikan disubmit');
+          savePerbaikan();
+        });
+      } else {
+        console.error('Form perbaikan tidak ditemukan!');
+      }
+      
+      // Select alat pada form perbaikan
+      const selectAlat = document.getElementById('select-alat');
+      if (selectAlat) {
+        selectAlat.addEventListener('change', function() {
+          console.log('Select alat berubah:', this.value);
+          const alatId = parseInt(this.value);
+          if (alatId) {
+            const alat = alatData.find(a => a.id === alatId);
+            if (alat) {
+              document.getElementById('nama-alat').value = alat.nama;
+            }
+          } else {
+            document.getElementById('nama-alat').value = '';
+          }
+        });
+      } else {
+        console.error('Select alat tidak ditemukan!');
+      }
+
+      // Tombol tambah maintenance
+      document.getElementById('btnTambahMaintenance').addEventListener('click', function() {
+        openMaintenanceModal();
+      });
+      
+      // Form maintenance submit
+      document.getElementById('form-maintenance').addEventListener('submit', function(e) {
+        e.preventDefault();
+        saveMaintenance();
+      });
+      
+      // Select alat pada form maintenance
+      document.getElementById('select-maintenance-alat').addEventListener('change', function() {
+        const alatId = parseInt(this.value);
+        if (alatId) {
+          const alat = alatData.find(a => a.id === alatId);
+          if (alat) {
+            document.getElementById('maintenance-nama').value = alat.nama;
+          }
+        } else {
+          document.getElementById('maintenance-nama').value = '';
+        }
+      });
+    }
+
+    // Fungsi untuk membuka modal perbaikan
+    function openPerbaikanModal() {
+      console.log('Membuka modal perbaikan');
+      
+      // Reset form
+      const formPerbaikan = document.getElementById('form-perbaikan');
+      if (formPerbaikan) {
+        console.log('Resetting form perbaikan');
+        formPerbaikan.reset();
+      } else {
+        console.error('Form perbaikan tidak ditemukan!');
+      }
+      
+      const alatIdInput = document.getElementById('alat-id');
+      if (alatIdInput) {
+        alatIdInput.value = '';
+      } else {
+        console.error('Input alat-id tidak ditemukan!');
+      }
+      
+      // Populate dropdown alat
+      const selectAlat = document.getElementById('select-alat');
+      if (!selectAlat) {
+        console.error('Select alat tidak ditemukan!');
+        return;
+      }
+      
+      selectAlat.innerHTML = '<option value="">Pilih Alat</option>';
+      
+      console.log('Populasi dropdown alat dengan data:', alatData);
+      alatData.forEach(alat => {
+        const option = document.createElement('option');
+        option.value = alat.id;
+        option.textContent = `${alat.nama} (${alat.kategori})`;
+        selectAlat.appendChild(option);
+      });
+      
+      // Buka modal menggunakan Bootstrap
+      const modalElement = document.getElementById('modal-perbaikan');
+      if (!modalElement) {
+        console.error('Modal perbaikan tidak ditemukan!');
+        return;
+      }
+      
+      console.log('Membuka modal dengan Bootstrap');
+      try {
+        const perbaikanModal = new bootstrap.Modal(modalElement);
+        perbaikanModal.show();
+        console.log('Modal berhasil ditampilkan');
+      } catch (error) {
+        console.error('Error saat membuka modal:', error);
+        alert('Terjadi kesalahan saat membuka form perbaikan!');
+      }
+    }
+
+    // Fungsi untuk menyimpan data perbaikan
+    function savePerbaikan() {
+      console.log('Menyimpan data perbaikan');
+      
+      try {
+        // Ambil nilai dari form
+        const selectAlat = document.getElementById('select-alat');
+        if (!selectAlat) {
+          throw new Error('Element select-alat tidak ditemukan');
+        }
+        
+        const alatId = parseInt(selectAlat.value);
+        console.log('ID Alat yang dipilih:', alatId);
+        
+        const jenisKerusakanSelect = document.getElementById('jenis-kerusakan');
+        if (!jenisKerusakanSelect) {
+          throw new Error('Element jenis-kerusakan tidak ditemukan');
+        }
+        const jenisKerusakan = jenisKerusakanSelect.value;
+        
+        const estimasiWaktuInput = document.getElementById('estimasi-waktu');
+        if (!estimasiWaktuInput) {
+          throw new Error('Element estimasi-waktu tidak ditemukan');
+        }
+        const estimasiWaktu = parseInt(estimasiWaktuInput.value);
+        
+        const biayaPerbaikanInput = document.getElementById('biaya-perbaikan');
+        if (!biayaPerbaikanInput) {
+          throw new Error('Element biaya-perbaikan tidak ditemukan');
+        }
+        const biayaPerbaikan = parseInt(biayaPerbaikanInput.value);
+        
+        const sparepartInput = document.getElementById('sparepart');
+        if (!sparepartInput) {
+          throw new Error('Element sparepart tidak ditemukan');
+        }
+        const sparepart = sparepartInput.value;
+        
+        const deskripsiInput = document.getElementById('deskripsi-kerusakan');
+        if (!deskripsiInput) {
+          throw new Error('Element deskripsi-kerusakan tidak ditemukan');
+        }
+        const deskripsi = deskripsiInput.value;
+        
+        console.log('Data form yang diambil:', {
+          alatId, jenisKerusakan, estimasiWaktu, biayaPerbaikan, sparepart, deskripsi
+        });
+        
+        if (!alatId || !jenisKerusakan || !estimasiWaktu || !biayaPerbaikan || !deskripsi) {
+          showNotification('perbaikan', 'Semua data harus diisi!', 'danger');
+          return;
+        }
+        
+        const alat = alatData.find(a => a.id === alatId);
+        if (!alat) {
+          showNotification('perbaikan', 'Alat tidak ditemukan!', 'danger');
+          return;
+        }
+        
+        // Generate ID baru
+        const newId = perbaikanData.length > 0 ? Math.max(...perbaikanData.map(p => p.id)) + 1 : 1;
+        
+        // Buat objek perbaikan baru
+        const newPerbaikan = {
+          id: newId,
+          alatId: alatId,
+          nama: alat.nama,
+          kategori: alat.kategori,
+          jenisKerusakan: jenisKerusakan,
+          deskripsi: deskripsi,
+          estimasi: estimasiWaktu,
+          biaya: biayaPerbaikan,
+          sparepart: sparepart,
+          status: 'menunggu',
+          tanggal: new Date().toISOString().split('T')[0]
+        };
+        
+        console.log('Objek perbaikan baru:', newPerbaikan);
+        
+        // Tambahkan ke array perbaikan
+        perbaikanData.push(newPerbaikan);
+        
+        // Update status alat
+        const alatIndex = alatData.findIndex(a => a.id === alatId);
+        if (alatIndex !== -1) {
+          alatData[alatIndex].status = 'perbaikan';
+        }
+        
+        // Reload data tabel dan tutup modal
+        loadPerbaikanData();
+        loadDashboardData();
+        
+        // Tutup modal
+        const modalElement = document.getElementById('modal-perbaikan');
+        if (modalElement) {
+          try {
+            const perbaikanModal = bootstrap.Modal.getInstance(modalElement);
+            if (perbaikanModal) {
+              perbaikanModal.hide();
+              console.log('Modal berhasil ditutup');
+            } else {
+              console.error('Tidak dapat menemukan instance modal');
+              modalElement.classList.remove('show');
+              modalElement.style.display = 'none';
+              const modalBackdrop = document.querySelector('.modal-backdrop');
+              if (modalBackdrop) {
+                modalBackdrop.remove();
+              }
+              document.body.classList.remove('modal-open');
+              document.body.style.overflow = '';
+              document.body.style.paddingRight = '';
+            }
+          } catch (error) {
+            console.error('Error menutup modal:', error);
+            // Fallback manual untuk menutup modal
+            modalElement.classList.remove('show');
+            modalElement.style.display = 'none';
+            const modalBackdrop = document.querySelector('.modal-backdrop');
+            if (modalBackdrop) {
+              modalBackdrop.remove();
+            }
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+          }
+        } else {
+          console.error('Element modal tidak ditemukan!');
+        }
+        
+        showNotification('perbaikan', 'Data perbaikan berhasil ditambahkan!', 'success');
+      } catch (error) {
+        console.error('Error saat menyimpan data perbaikan:', error);
+        showNotification('perbaikan', 'Terjadi kesalahan: ' + error.message, 'danger');
+      }
+    }
+
+    // Fungsi untuk membuka modal maintenance
+    function openMaintenanceModal() {
+      // Reset form
+      document.getElementById('form-maintenance').reset();
+      document.getElementById('maintenance-id').value = '';
+      
+      // Populate dropdown alat
+      const selectAlat = document.getElementById('select-maintenance-alat');
+      selectAlat.innerHTML = '<option value="">Pilih Alat</option>';
+      
+      alatData.forEach(alat => {
+        const option = document.createElement('option');
+        option.value = alat.id;
+        option.textContent = `${alat.nama} (${alat.kategori})`;
+        selectAlat.appendChild(option);
+      });
+      
+      // Buka modal
+      const maintenanceModal = new bootstrap.Modal(document.getElementById('modal-maintenance'));
+      maintenanceModal.show();
+    }
+
+    // Fungsi untuk menyimpan data maintenance
+    function saveMaintenance() {
+      // Ambil nilai dari form
+      const alatId = parseInt(document.getElementById('select-maintenance-alat').value);
+      const jenisMaintenance = document.getElementById('jenis-maintenance').value;
+      const biayaMaintenance = parseInt(document.getElementById('biaya-maintenance').value);
+      const tanggalMaintenance = document.getElementById('tanggal-maintenance').value;
+      const tanggalSelanjutnya = document.getElementById('tanggal-maintenance-selanjutnya').value;
+      const deskripsi = document.getElementById('deskripsi-maintenance').value;
+      const catatan = document.getElementById('catatan-maintenance').value;
+      
+      if (!alatId || !jenisMaintenance || !biayaMaintenance || !tanggalMaintenance || !tanggalSelanjutnya || !deskripsi) {
+        showNotification('maintenance', 'Semua data harus diisi!', 'danger');
+        return;
+      }
+      
+      const alat = alatData.find(a => a.id === alatId);
+      if (!alat) {
+        showNotification('maintenance', 'Alat tidak ditemukan!', 'danger');
+        return;
+      }
+      
+      // Generate ID baru
+      const newId = maintenanceData.length > 0 ? Math.max(...maintenanceData.map(m => m.id)) + 1 : 1;
+      
+      // Buat objek maintenance baru
+      const newMaintenance = {
+        id: newId,
+        alatId: alatId,
+        nama: alat.nama,
+        kategori: alat.kategori,
+        jenis: jenisMaintenance,
+        lastMaintenance: tanggalMaintenance,
+        nextMaintenance: tanggalSelanjutnya,
+        biaya: biayaMaintenance,
+        deskripsi: deskripsi,
+        catatan: catatan,
+        status: 'terjadwal'
+      };
+      
+      // Tambahkan ke array maintenance
+      maintenanceData.push(newMaintenance);
+      
+      // Update lastMaintenance pada alat
+      const alatIndex = alatData.findIndex(a => a.id === alatId);
+      if (alatIndex !== -1) {
+        alatData[alatIndex].lastMaintenance = tanggalMaintenance;
+      }
+      
+      // Reload data tabel dan tutup modal
+      loadMaintenanceData();
+      loadDashboardData();
+      
+      // Tutup modal
+      const maintenanceModal = bootstrap.Modal.getInstance(document.getElementById('modal-maintenance'));
+      maintenanceModal.hide();
+      
+      showNotification('maintenance', 'Data maintenance berhasil ditambahkan!', 'success');
+    }
+
+    // Fungsi untuk menampilkan notifikasi
+    function showNotification(target, message, type) {
+      const notificationElement = document.getElementById(`notification-${target}`);
+      notificationElement.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `;
+      
+      // Auto-hide setelah 5 detik
+      setTimeout(() => {
+        const alert = notificationElement.querySelector('.alert');
+        if (alert) {
+          const bsAlert = new bootstrap.Alert(alert);
+          bsAlert.close();
+        }
+      }, 5000);
+    }
+
+    // Fungsi untuk memuat data dashboard
+    function loadDashboardData() {
+      // Update counter
+      document.getElementById('total-alat').textContent = alatData.length;
+      document.getElementById('perlu-perbaikan').textContent = alatData.filter(a => a.status === 'perbaikan').length;
+      document.getElementById('sedang-perbaikan').textContent = perbaikanData.filter(p => p.status === 'proses').length;
+      document.getElementById('maintenance-count').textContent = maintenanceData.length;
+      
+      // Ambil tabel alat dan kosongkan
+      const alatTable = document.getElementById('alatTable');
+      alatTable.innerHTML = '';
+      
+      // Populate tabel
+      alatData.forEach((alat, index) => {
+        const row = document.createElement('tr');
+        
+        // Tentukan class berdasarkan status
+        let statusClass = '';
+        if (alat.status === 'perbaikan') {
+          statusClass = 'text-danger';
+        } else if (alat.status === 'maintenance') {
+          statusClass = 'text-warning';
+        } else {
+          statusClass = 'text-success';
+        }
+        
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${alat.nama}</td>
+          <td>${alat.kategori}</td>
+          <td>${alat.stok}</td>
+          <td class="${statusClass}">${capitalizeFirstLetter(alat.status)}</td>
+          <td>${formatDate(alat.lastMaintenance)}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-1" onclick="detailAlat(${alat.id})">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-warning me-1" onclick="editAlat(${alat.id})">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" onclick="deleteAlat(${alat.id})">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        `;
+        
+        alatTable.appendChild(row);
+      });
+    }
+
+    // Fungsi untuk memuat data perbaikan
+    function loadPerbaikanData() {
+      // Ambil tabel perbaikan dan kosongkan
+      const perbaikanTable = document.getElementById('perbaikanTable');
+      perbaikanTable.innerHTML = '';
+      
+      // Populate tabel
+      perbaikanData.forEach((perbaikan, index) => {
+        const row = document.createElement('tr');
+        
+        // Tentukan class berdasarkan status
+        let statusClass = '';
+        if (perbaikan.status === 'menunggu') {
+          statusClass = 'text-warning';
+        } else if (perbaikan.status === 'proses') {
+          statusClass = 'text-primary';
+        } else if (perbaikan.status === 'selesai') {
+          statusClass = 'text-success';
+        }
+        
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${perbaikan.nama}</td>
+          <td>${perbaikan.kategori}</td>
+          <td>${capitalizeFirstLetter(perbaikan.jenisKerusakan)}</td>
+          <td>${perbaikan.deskripsi}</td>
+          <td>${perbaikan.estimasi} hari</td>
+          <td class="${statusClass}">${capitalizeFirstLetter(perbaikan.status)}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-1" onclick="detailPerbaikan(${perbaikan.id})">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-warning me-1" onclick="editPerbaikan(${perbaikan.id})">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-success" onclick="updateStatusPerbaikan(${perbaikan.id})">
+              <i class="fas fa-check"></i>
+            </button>
+          </td>
+        `;
+        
+        perbaikanTable.appendChild(row);
+      });
+    }
+
+    // Fungsi untuk memuat data maintenance
+    function loadMaintenanceData() {
+      // Ambil tabel maintenance dan kosongkan
+      const maintenanceTable = document.getElementById('maintenanceTable');
+      maintenanceTable.innerHTML = '';
+      
+      // Populate tabel
+      maintenanceData.forEach((maintenance, index) => {
+        const row = document.createElement('tr');
+        
+        // Tentukan class berdasarkan status
+        let statusClass = '';
+        if (maintenance.status === 'terjadwal') {
+          statusClass = 'text-warning';
+        } else if (maintenance.status === 'proses') {
+          statusClass = 'text-primary';
+        } else if (maintenance.status === 'selesai') {
+          statusClass = 'text-success';
+        }
+        
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${maintenance.nama}</td>
+          <td>${maintenance.kategori}</td>
+          <td>${capitalizeFirstLetter(maintenance.jenis)}</td>
+          <td>${formatDate(maintenance.lastMaintenance)}</td>
+          <td>${formatDate(maintenance.nextMaintenance)}</td>
+          <td class="${statusClass}">${capitalizeFirstLetter(maintenance.status)}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-1" onclick="detailMaintenance(${maintenance.id})">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-warning me-1" onclick="editMaintenance(${maintenance.id})">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-success" onclick="updateStatusMaintenance(${maintenance.id})">
+              <i class="fas fa-check"></i>
+            </button>
+          </td>
+        `;
+        
+        maintenanceTable.appendChild(row);
+      });
+    }
+
+    // Fungsi untuk generate laporan
+    function generateReport() {
+      const startDate = document.getElementById('start-date').value;
+      const endDate = document.getElementById('end-date').value;
+      const reportType = document.getElementById('report-type').value;
+      
+      if (!startDate || !endDate) {
+        alert('Silakan pilih rentang tanggal untuk laporan!');
+        return;
+      }
+      
+      // Reset tabel laporan
+      const reportTable = document.getElementById('reportTable');
+      reportTable.innerHTML = '';
+      
+      // Filter data berdasarkan tanggal dan jenis laporan
+      let reportData = [];
+      
+      if (reportType === 'perbaikan' || reportType === 'semua') {
+        const filteredPerbaikan = perbaikanData.filter(p => {
+          return p.tanggal >= startDate && p.tanggal <= endDate;
+        });
+        
+        reportData = [...reportData, ...filteredPerbaikan.map(p => ({
+          tanggal: p.tanggal,
+          nama: p.nama,
+          kategori: p.kategori,
+          jenis: 'Perbaikan: ' + capitalizeFirstLetter(p.jenisKerusakan),
+          deskripsi: p.deskripsi,
+          status: p.status
+        }))];
+      }
+      
+      if (reportType === 'maintenance' || reportType === 'semua') {
+        const filteredMaintenance = maintenanceData.filter(m => {
+          return m.lastMaintenance >= startDate && m.lastMaintenance <= endDate;
+        });
+        
+        reportData = [...reportData, ...filteredMaintenance.map(m => ({
+          tanggal: m.lastMaintenance,
+          nama: m.nama,
+          kategori: m.kategori,
+          jenis: 'Maintenance: ' + capitalizeFirstLetter(m.jenis),
+          deskripsi: m.deskripsi,
+          status: m.status
+        }))];
+      }
+      
+      // Sort by date
+      reportData.sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal));
+      
+      // Populate tabel laporan
+      reportData.forEach(item => {
+        const row = document.createElement('tr');
+        
+        // Tentukan class berdasarkan status
+        let statusClass = '';
+        if (item.status === 'menunggu' || item.status === 'terjadwal') {
+          statusClass = 'text-warning';
+        } else if (item.status === 'proses') {
+          statusClass = 'text-primary';
+        } else if (item.status === 'selesai') {
+          statusClass = 'text-success';
+        }
+        
+        row.innerHTML = `
+          <td>${formatDate(item.tanggal)}</td>
+          <td>${item.nama}</td>
+          <td>${item.kategori}</td>
+          <td>${item.jenis}</td>
+          <td>${item.deskripsi}</td>
+          <td class="${statusClass}">${capitalizeFirstLetter(item.status)}</td>
+        `;
+        
+        reportTable.appendChild(row);
+      });
+      
+      // Update counter
+      document.getElementById('total-perbaikan').textContent = perbaikanData.length;
+      document.getElementById('total-maintenance').textContent = maintenanceData.length;
+      document.getElementById('total-rusak').textContent = alatData.filter(a => a.status === 'perbaikan').length;
+      document.getElementById('total-baik').textContent = alatData.filter(a => a.status === 'baik').length;
+    }
+
+    // Fungsi utilitas
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '-';
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+
+    // Fungsi CRUD untuk alat
+    function detailAlat(id) {
+      alert('Lihat detail alat ID: ' + id);
+    }
+
+    function editAlat(id) {
+      alert('Edit alat ID: ' + id);
+    }
+
+    function deleteAlat(id) {
+      if (confirm('Apakah Anda yakin ingin menghapus alat ini?')) {
+        const index = alatData.findIndex(a => a.id === id);
+        if (index !== -1) {
+          alatData.splice(index, 1);
+          loadDashboardData();
+        }
+      }
+    }
+
+    // Fungsi CRUD untuk perbaikan
+    function detailPerbaikan(id) {
+      alert('Lihat detail perbaikan ID: ' + id);
+    }
+
+    function editPerbaikan(id) {
+      const perbaikan = perbaikanData.find(p => p.id === id);
+      if (!perbaikan) return;
+      
+      document.getElementById('alat-id').value = perbaikan.alatId;
+      
+      // Populate dropdown alat
+      const selectAlat = document.getElementById('select-alat');
+      selectAlat.innerHTML = '<option value="">Pilih Alat</option>';
+      
+      alatData.forEach(alat => {
+        const option = document.createElement('option');
+        option.value = alat.id;
+        option.textContent = `${alat.nama} (${alat.kategori})`;
+        if (alat.id === perbaikan.alatId) {
+          option.selected = true;
+        }
+        selectAlat.appendChild(option);
+      });
+      
+      document.getElementById('nama-alat').value = perbaikan.nama;
+      document.getElementById('jenis-kerusakan').value = perbaikan.jenisKerusakan;
+      document.getElementById('estimasi-waktu').value = perbaikan.estimasi;
+      document.getElementById('biaya-perbaikan').value = perbaikan.biaya || 0;
+      document.getElementById('sparepart').value = perbaikan.sparepart || '';
+      document.getElementById('deskripsi-kerusakan').value = perbaikan.deskripsi;
+      
+      // Buka modal
+      const perbaikanModal = new bootstrap.Modal(document.getElementById('modal-perbaikan'));
+      perbaikanModal.show();
+    }
+
+    function updateStatusPerbaikan(id) {
+      const perbaikan = perbaikanData.find(p => p.id === id);
+      if (!perbaikan) return;
+      
+      let newStatus = '';
+      if (perbaikan.status === 'menunggu') {
+        newStatus = 'proses';
+      } else if (perbaikan.status === 'proses') {
+        newStatus = 'selesai';
+        
+        // Update status alat menjadi 'baik' jika perbaikan selesai
+        const alatIndex = alatData.findIndex(a => a.id === perbaikan.alatId);
+        if (alatIndex !== -1) {
+          alatData[alatIndex].status = 'baik';
+        }
+      }
+      
+      if (newStatus) {
+        perbaikan.status = newStatus;
+        loadPerbaikanData();
+        loadDashboardData();
+        showNotification('perbaikan', `Status perbaikan berhasil diubah menjadi ${newStatus}!`, 'success');
+      }
+    }
+
+    // Fungsi CRUD untuk maintenance
+    function detailMaintenance(id) {
+      alert('Lihat detail maintenance ID: ' + id);
+    }
+
+    function editMaintenance(id) {
+      const maintenance = maintenanceData.find(m => m.id === id);
+      if (!maintenance) return;
+      
+      document.getElementById('maintenance-id').value = maintenance.alatId;
+      
+      // Populate dropdown alat
+      const selectAlat = document.getElementById('select-maintenance-alat');
+      selectAlat.innerHTML = '<option value="">Pilih Alat</option>';
+      
+      alatData.forEach(alat => {
+        const option = document.createElement('option');
+        option.value = alat.id;
+        option.textContent = `${alat.nama} (${alat.kategori})`;
+        if (alat.id === maintenance.alatId) {
+          option.selected = true;
+        }
+        selectAlat.appendChild(option);
+      });
+      
+      document.getElementById('maintenance-nama').value = maintenance.nama;
+      document.getElementById('jenis-maintenance').value = maintenance.jenis;
+      document.getElementById('biaya-maintenance').value = maintenance.biaya || 0;
+      document.getElementById('tanggal-maintenance').value = maintenance.lastMaintenance;
+      document.getElementById('tanggal-maintenance-selanjutnya').value = maintenance.nextMaintenance;
+      document.getElementById('deskripsi-maintenance').value = maintenance.deskripsi;
+      document.getElementById('catatan-maintenance').value = maintenance.catatan || '';
+      
+      // Buka modal
+      const maintenanceModal = new bootstrap.Modal(document.getElementById('modal-maintenance'));
+      maintenanceModal.show();
+    }
+
+    function updateStatusMaintenance(id) {
+      const maintenance = maintenanceData.find(m => m.id === id);
+      if (!maintenance) return;
+      
+      let newStatus = '';
+      if (maintenance.status === 'terjadwal') {
+        newStatus = 'proses';
+      } else if (maintenance.status === 'proses') {
+        newStatus = 'selesai';
+      }
+      
+      if (newStatus) {
+        maintenance.status = newStatus;
+        loadMaintenanceData();
+        showNotification('maintenance', `Status maintenance berhasil diubah menjadi ${newStatus}!`, 'success');
+      }
+    }
+  </script>
+</body>
+</html>

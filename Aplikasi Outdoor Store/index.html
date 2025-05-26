@@ -1,0 +1,418 @@
+<!DOCTYPE html> 
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outdoor Rental Store</title>
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f7f9f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #2d6a4f;
+      padding: 15px 30px;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    #hero {
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') no-repeat center center/cover;
+      height: 90vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    #hero h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background-color: #40916c;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #1b4332;
+    }
+
+    .about, .contact {
+      background-color: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .portfolio-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .portfolio-item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-8px);
+    }
+
+    .portfolio-wrap img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .portfolio-info {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .portfolio-info h4 {
+      margin: 10px 0 5px;
+    }
+
+    .portfolio-info p {
+      color: #777;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background-color: #2d6a4f;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: 50px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    form button {
+      width: 100%;
+      background-color: #40916c;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    form button:hover {
+      background-color: #1b4332;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Outdoor Kw Store</h1>
+    <nav>
+      <ul>
+        <li><a href="#hero">Beranda</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#portfolio">Produk</a></li>
+        <li><a href="#contact">Kontak</a></li>
+        <li><a href="login.html" class="btn">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <h1>Selamat Datang</h1>
+    <h2>Sewa alat camping & outdoor dengan mudah!</h2>
+    <a href="#portfolio" class="btn">Sewa Sekarang</a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>Tentang Kami</h2>
+    
+    <p>Outdoor Kw Store adalah tempat terpercaya untuk menyewa perlengkapan camping dan pendakian. Kami menawarkan produk terbaik dengan harga terjangkau, siap menunjang petualangan Anda di alam bebas!</p>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio"> 
+    <h2>Produk Kami</h2>
+    <div class="portfolio-container">
+
+      <!-- Produk 1 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="tenda.jpg" alt="Tenda Dome">
+          <div class="portfolio-info">
+            <h4>Tenda Dome</h4>
+            <p>Rp. 100.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 2 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="komjfif.jfif" alt="Kompor Portable">
+          <div class="portfolio-info">
+            <h4>Kompor Portable</h4>
+            <p>Rp. 30.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 3 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="matras.jfif" alt="Matras">
+          <div class="portfolio-info">
+            <h4>Matras</h4>
+            <p>Rp. 10.000/hari</p>
+            
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 4 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="sleep.jfif" alt="Sleeping Bag">
+          <div class="portfolio-info">
+            <h4>Sleeping Bag</h4>
+            <p>Rp. 25.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 5 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="ransel.jfif" alt="Carrier 60L">
+          <div class="portfolio-info">
+            <h4>Carrier 60L</h4>
+            <p>Rp. 40.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 6 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="jaket.jfif" alt="Jas Hujan">
+          <div class="portfolio-info">
+            <h4>Jas Hujan</h4>
+            <p>Rp. 15.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 7 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="senter.jfif" alt="Lampu Senter">
+          <div class="portfolio-info">
+            <h4>Lampu Senter</h4>
+            <p>Rp. 10.000/hari</p>
+            
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 8 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="treck.png" alt="Trekking Poles">
+          <div class="portfolio-info">
+            <h4>Trekking Poles</h4>
+            <p>Rp. 15.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 9 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="dome.jfif" alt="Tenda Camping">
+          <div class="portfolio-info">
+            <h4>Tenda Camping</h4>
+            <p>Rp. 150.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 10 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="box.jfif" alt="Cooler Box">
+          <div class="portfolio-info">
+            <h4>Cooler Box</h4>
+            <p>Rp. 50.000/hari</p>
+      
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 11 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="masak.jfif" alt="Alat Masak">
+          <div class="portfolio-info">
+            <h4>Alat Masak</h4>
+            <p>Rp. 20.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+      <!-- Produk 14 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="gelas.jfif" alt="Pompa Matras">
+          <div class="portfolio-info">
+            <h4>Pompa Matras</h4>
+            <p>Rp. 5.000/hari</p>
+            
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produk 15 -->
+      <div class="portfolio-item">
+        <div class="portfolio-wrap">
+          <img src="pompa.jfif" alt="Gelas Camping">
+          <div class="portfolio-info">
+            <h4>Gelas Camping</h4>
+            <p>Rp. 2.000/hari</p>
+           
+            <a href="test.html" class="btn">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Kontak Kami</h2>
+    <p>Hubungi kami untuk informasi lebih lanjut atau pemesanan alat outdoor!</p>
+
+    <form action="#">
+      <input type="text" name="name" placeholder="Nama Anda" required>
+      <input type="email" name="email" placeholder="Email Anda" required>
+      <input type="text" name="subject" placeholder="Judul Pesan" required>
+      <textarea name="message" rows="5" placeholder="Pesan Anda" required></textarea>
+      <button type="submit">Kirim Pesan</button>
+    </form>
+
+    <div style="margin-top: 30px;">
+      <p><strong>Lokasi:</strong> Jl. Raya Serang, Tangerang Banten</p>
+      <p><strong>Email:</strong> outdoorkwstore@gmail.com</p>
+      <p><strong>Telepon:</strong> +62 812 3456 7890</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 OutdoorRental. All rights reserved.
+  </footer>
+
+</body>
+
+</html>

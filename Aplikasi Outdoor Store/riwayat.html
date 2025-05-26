@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Transaksi - Outdoor KW Store</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2d6a4f;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2d6a4f;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #40916c;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        .search-bar select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f7f7f7;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-completed {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #2d6a4f;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-row label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .summary-row {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #eee;
+        }
+
+        .summary-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .summary-info.total {
+            font-weight: bold;
+            color: #2d6a4f;
+            font-size: 1.1em;
+        }
+
+        .no-transactions {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Riwayat Transaksi</h1>
+            <div class="nav-links">
+                <a href="indexUtama.html">Kembali ke Beranda</a>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Cari transaksi...">
+            <select id="statusFilter">
+                <option value="all">Semua Status</option>
+                <option value="Menunggu Konfirmasi">Menunggu</option>
+                <option value="Disetujui">Disetujui</option>
+                <option value="Ditolak">Ditolak</option>
+                <option value="Selesai">Selesai</option>
+            </select>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>ID Transaksi</th>
+                    <th>Tanggal</th>
+                    <th>Periode Sewa</th>
+                    <th>Lama Sewa</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="transaksiBody">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Detail -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detail Transaksi #<span id="transactionId"></span></h3>
+                <span class="close" onclick="closeDetailModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="detail-row">
+                    <label>Tanggal Transaksi:</label>
+                    <span id="detailDate"></span>
+                </div>
+                <div class="detail-row">
+                    <label>Periode Sewa:</label>
+                    <span id="detailPeriod"></span>
+                </div>
+                <div class="detail-row">
+                    <label>Lama Sewa:</label>
+                    <span id="detailLamaSewa"></span>
+                </div>
+                <div class="detail-row">
+                    <label>Status:</label>
+                    <span id="detailStatus"></span>
+                </div>
+                <div class="detail-items">
+                    <h4>Item yang Disewa:</h4>
+                    <div id="detailItems"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cek login
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            alert('Silakan login terlebih dahulu');
+            window.location.href = 'login-user.html';
+        }
+
+        // Fungsi untuk menampilkan transaksi
+        function displayTransactions() {
+            const transactions = JSON.parse(localStorage.getItem('userTransactions')) || [];
+            const transaksiBody = document.getElementById('transaksiBody');
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            // Filter transaksi untuk user yang login
+            let filteredTransactions = transactions.filter(trans => 
+                trans.customer === currentUser.name
+            );
+            
+            // Filter berdasarkan pencarian
+            if (searchInput) {
+                filteredTransactions = filteredTransactions.filter(trans => 
+                    trans.id.toString().includes(searchInput)
+                );
+            }
+            
+            // Filter berdasarkan status
+            if (statusFilter !== 'all') {
+                filteredTransactions = filteredTransactions.filter(trans => 
+                    trans.status === statusFilter
+                );
+            }
+            
+            transaksiBody.innerHTML = '';
+            
+            if (filteredTransactions.length === 0) {
+                transaksiBody.innerHTML = `
+                    <tr>
+                        <td colspan="8">
+                            <div class="no-transactions">
+                                Tidak ada transaksi yang ditemukan
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            filteredTransactions.forEach((trans, index) => {
+                const days = Math.round(
+                    (new Date(trans.endDate) - new Date(trans.startDate)) / (24*60*60*1000) || 1
+                );
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>#${trans.id}</td>
+                    <td>${trans.date}</td>
+                    <td>${trans.startDate} s/d ${trans.endDate}</td>
+                    <td>${days} hari</td>
+                    <td>Rp ${trans.total.toLocaleString()}</td>
+                    <td><span class="status status-${trans.status.toLowerCase().replace(' ', '-')}">${trans.status}</span></td>
+                    <td>
+                        <button class="btn btn-info" onclick="viewDetail(${trans.id})">Detail</button>
+                    </td>
+                `;
+                transaksiBody.appendChild(row);
+            });
+        }
+
+        // Fungsi untuk melihat detail transaksi
+        function viewDetail(id) {
+            const transactions = JSON.parse(localStorage.getItem('userTransactions')) || [];
+            const trans = transactions.find(t => t.id === id);
+            
+            if (trans) {
+                const days = Math.round(
+                    (new Date(trans.endDate) - new Date(trans.startDate)) / (24*60*60*1000) || 1
+                );
+                
+                document.getElementById('transactionId').textContent = `#${trans.id}`;
+                document.getElementById('detailDate').textContent = trans.date;
+                document.getElementById('detailPeriod').textContent = `${trans.startDate} s/d ${trans.endDate}`;
+                document.getElementById('detailLamaSewa').textContent = `${days} hari`;
+                
+                const statusElement = document.getElementById('detailStatus');
+                statusElement.textContent = trans.status;
+                statusElement.className = 'status';
+                statusElement.classList.add(`status-${trans.status.toLowerCase().replace(' ', '-')}`);
+                
+                const itemsContainer = document.getElementById('detailItems');
+                itemsContainer.innerHTML = '';
+                
+                let totalItems = 0;
+                trans.items.forEach(item => {
+                    totalItems += item.qty;
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'item-row';
+                    itemDiv.innerHTML = `
+                        <div class="item-info">
+                            <span class="item-name">${item.name}</span>
+                            <span class="item-qty">${item.qty}x</span>
+                        </div>
+                        <div class="item-price">
+                            <span class="price-per-day">Rp ${item.price.toLocaleString()}/hari</span>
+                            <span class="price-total">Rp ${(item.price * item.qty * days).toLocaleString()}</span>
+                        </div>
+                    `;
+                    itemsContainer.appendChild(itemDiv);
+                });
+
+                const summaryDiv = document.createElement('div');
+                summaryDiv.className = 'summary-row';
+                summaryDiv.innerHTML = `
+                    <div class="summary-info">
+                        <span>Total Item:</span>
+                        <span>${totalItems} item</span>
+                    </div>
+                    <div class="summary-info">
+                        <span>Lama Sewa:</span>
+                        <span>${days} hari</span>
+                    </div>
+                    <div class="summary-info total">
+                        <span>Total Pembayaran:</span>
+                        <span>Rp ${trans.total.toLocaleString()}</span>
+                    </div>
+                `;
+                itemsContainer.appendChild(summaryDiv);
+                
+                document.getElementById('detailModal').classList.add('active');
+            }
+        }
+
+        // Fungsi untuk menutup modal
+        function closeDetailModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            displayTransactions();
+            
+            document.getElementById('searchInput').addEventListener('input', displayTransactions);
+            document.getElementById('statusFilter').addEventListener('change', displayTransactions);
+        });
+    </script>
+</body>
+</html>

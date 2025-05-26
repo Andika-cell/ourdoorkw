@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outdoor KW Store - Registrasi</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #2d6a4f;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2d6a4f;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #2d6a4f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #1b4332;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .login-link a {
+      color: #2d6a4f;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: #dc3545;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Registrasi Akun</h1>
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="name">Nama Lengkap</label>
+        <input type="text" id="name" required>
+        <div class="error" id="nameError"></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+        <div class="error" id="emailError"></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+        <div class="error" id="passwordError"></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="confirmPassword">Konfirmasi Password</label>
+        <input type="password" id="confirmPassword" required>
+        <div class="error" id="confirmPasswordError"></div>
+      </div>
+      
+      <button type="submit" class="btn">Daftar</button>
+    </form>
+    
+    <div class="login-link">
+      Sudah punya akun? <a href="login-user.html">Login disini</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Reset error messages
+      document.querySelectorAll('.error').forEach(el => {
+        el.style.display = 'none';
+      });
+      
+      // Get form values
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      let isValid = true;
+      
+      // Validate name
+      if (name.length < 3) {
+        document.getElementById('nameError').textContent = 'Nama minimal 3 karakter';
+        document.getElementById('nameError').style.display = 'block';
+        isValid = false;
+      }
+      
+      // Validate email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        document.getElementById('emailError').textContent = 'Email tidak valid';
+        document.getElementById('emailError').style.display = 'block';
+        isValid = false;
+      }
+      
+      // Validate password
+      if (password.length < 6) {
+        document.getElementById('passwordError').textContent = 'Password minimal 6 karakter';
+        document.getElementById('passwordError').style.display = 'block';
+        isValid = false;
+      }
+      
+      // Validate confirm password
+      if (password !== confirmPassword) {
+        document.getElementById('confirmPasswordError').textContent = 'Password tidak cocok';
+        document.getElementById('confirmPasswordError').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (isValid) {
+        // Get existing users or initialize empty array
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        
+        // Check if email already exists
+        if (users.some(user => user.email === email)) {
+          document.getElementById('emailError').textContent = 'Email sudah terdaftar';
+          document.getElementById('emailError').style.display = 'block';
+          return;
+        }
+        
+        // Add new user
+        users.push({
+          name: name,
+          email: email,
+          password: password,
+          role: 'user'
+        });
+        
+        // Save to localStorage
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Show success message and redirect
+        alert('Registrasi berhasil! Silakan login.');
+        window.location.href = 'login-user.html';
+      }
+    });
+  </script>
+</body>
+</html> 
